@@ -14,8 +14,8 @@ jobs:
         with:
           token: ${{ secrets.GH_PAT }}
 
-      - name: Install SVN
-        run: sudo apt-get update && sudo apt-get install -y subversion
+      - name: Install SVN and rsync
+        run: sudo apt-get update && sudo apt-get install -y subversion rsync
 
       - name: Checkout SVN and Push to GitHub
         env:
@@ -23,20 +23,17 @@ jobs:
           SVN_PASS: ${{ secrets.SVN_PASSWORD }}
         run: |
           echo "=== 1. SVN 체크아웃 시도 ==="
-          # 본인의 RiouxSVN 주소로 되어 있는지 꼭 확인하세요!
           svn checkout https://riouxsvn.com/svn/svn-1 ./svn_temp --username "$SVN_USER" --password "$SVN_PASS" --non-interactive
           
           echo "=== 2. 체크아웃된 폴더 확인 ==="
           ls -la ./svn_temp
           
-          # .svn 폴더 제거
-          rm -rf ./svn_temp/.svn
+          echo "=== 3. rsync를 이용한 안전한 파일 동기화 ==="
+          # svn_temp 안의 내용을 .git과 .github 폴더를 제외하고 현재 디렉토리로 동기화
+          rsync -av --exclude='.svn' --exclude='.git' --exclude='.github' ./svn_temp/ ./
           
-          echo "=== 3. 파일 덮어쓰기 진행 ==="
-          find . -maxdepth 1 ! -name '.' ! -name '.git' ! -name '.github' -exec rm -rf {} +
-          
-          # [수정된 부분] './svn_temp/.' 대신 './svn_temp/*' 로 변경하여 모든 파일 복사
-          cp -r ./svn_temp/* .
+          # 임시 체크아웃 폴더 삭제
+          rm -rf ./svn_temp
           
           echo "=== 4. Git Push 진행 ==="
           git config --global user.name "SVN Sync Bot"
