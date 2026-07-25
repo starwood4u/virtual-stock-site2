@@ -22,23 +22,27 @@ jobs:
           SVN_USER: ${{ secrets.SVN_USERNAME }}
           SVN_PASS: ${{ secrets.SVN_PASSWORD }}
         run: |
-          # 1. RiouxSVN 소스 체크아웃 (본인 주소로 정확히 입력되었는지 재확인)
-          svn checkout https://svn.riouxsvn.com/svn-1 ./svn_temp --username "$SVN_USER" --password "$SVN_PASS" --non-interactive
+          echo "=== 1. SVN 체크아웃 시도 ==="
+          # 본인의 RiouxSVN 주소로 되어 있는지 꼭 확인하세요!
+          svn checkout https://riouxsvn.com/svn/svn-1 ./svn_temp --username "$SVN_USER" --password "$SVN_PASS" --non-interactive
           
-          # 2. SVN 메타데이터 제거
+          echo "=== 2. 체크아웃된 폴더 확인 ==="
+          ls -la ./svn_temp
+          
+          # .svn 폴더 제거
           rm -rf ./svn_temp/.svn
           
-          # 3. 기존 파일 정리 및 SVN 파일로 교체 (.git, .github 폴더 보존)
+          echo "=== 3. 파일 덮어쓰기 진행 ==="
           find . -maxdepth 1 ! -name '.' ! -name '.git' ! -name '.github' -exec rm -rf {} +
-          cp -r ./svn_temp/. .
           
-          # 4. Git 설정 및 변경 감지 후 푸시 (에러 방지 처리 추가)
+          # [수정된 부분] './svn_temp/.' 대신 './svn_temp/*' 로 변경하여 모든 파일 복사
+          cp -r ./svn_temp/* .
+          
+          echo "=== 4. Git Push 진행 ==="
           git config --global user.name "SVN Sync Bot"
           git config --global user.email "bot@users.noreply.github.com"
           
           git add .
-          
-          # 변경된 내용이 있는 경우에만 commit 및 push 수행
           if git diff --cached --quiet; then
             echo "No changes to sync from RiouxSVN."
           else
