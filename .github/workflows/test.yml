@@ -1,0 +1,49 @@
+name: Sync SVN to GitHub
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/30 * * * *'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout GitHub Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Install SVN
+        run: sudo apt-get update && sudo apt-get install -y subversion
+
+      - name: Checkout SVN and Push to GitHub
+        env:
+          SVN_USER: ${{ secrets.SVN_USERNAME }}
+          SVN_PASS: ${{ secrets.SVN_PASSWORD }}
+        run: |
+          echo "=== 1. SVN 체크아웃 시도 ==="
+          # svn checkout 주소를 본인의 정확한 주소로 수정해주세요.
+          svn checkout https://riouxsvn.com/svn/your-project-name ./svn_temp --username "$SVN_USER" --password "$SVN_PASS" --non-interactive
+          
+          echo "=== 2. 체크아웃된 폴더 확인 ==="
+          ls -la ./svn_temp
+          
+          # .svn 폴더 제거
+          rm -rf ./svn_temp/.svn
+          
+          echo "=== 3. 파일 덮어쓰기 진행 ==="
+          find . -maxdepth 1 ! -name '.' ! -name '.git' ! -name '.github' -exec rm -rf {} +
+          cp -r ./svn_temp/. .
+          
+          echo "=== 4. Git Push 진행 ==="
+          git config --global user.name "SVN Sync Bot"
+          git config --global user.email "bot@users.noreply.github.com"
+          
+          git add .
+          if git diff --cached --quiet; then
+            echo "No changes to sync from RiouxSVN."
+          else
+            git commit -m "Auto-sync from RiouxSVN"
+            git push origin main
+          fi
