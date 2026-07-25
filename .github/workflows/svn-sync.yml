@@ -23,7 +23,7 @@ jobs:
           SVN_PASS: ${{ secrets.SVN_PASSWORD }}
         run: |
           # 1. RiouxSVN 소스 체크아웃 (본인 주소로 정확히 입력되었는지 재확인)
-          svn checkout https://riouxsvn.com/svn/svn-1 ./svn_temp --username "$SVN_USER" --password "$SVN_PASS" --non-interactive
+          svn checkout https://svn.riouxsvn.com/svn-1 ./svn_temp --username "$SVN_USER" --password "$SVN_PASS" --non-interactive
           
           # 2. SVN 메타데이터 제거
           rm -rf ./svn_temp/.svn
