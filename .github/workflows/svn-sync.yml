@@ -1,0 +1,43 @@
+name: Sync SVN to GitHub
+
+on:
+  # 1. 원할 때 GitHub 대시보드에서 수동으로 실행할 수 있습니다.
+  workflow_dispatch:
+  
+  # 2. 정해진 시간마다 자동으로 동기화합니다. (예: 매 30분마다 실행)
+  # 필요에 따라 시간 간격을 조절할 수 있습니다 (예: '0 * * * *'는 매 1시간)
+  schedule:
+    - cron: '*/30 * * * *'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout GitHub Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Install SVN
+        run: sudo apt-get update && sudo apt-get install -y subversion
+
+      - name: Checkout SVN and Push to GitHub
+        env:
+          SVN_USER: ${{ secrets.SVN_USERNAME }}
+          SVN_PASS: ${{ secrets.SVN_PASSWORD }}
+        run: |
+          # 1. RiouxSVN 소스 체크아웃 (본인의 RiouxSVN 프로젝트 URL로 수정 필수)
+          svn checkout https://riouxsvn.com/svn/svn-1 ./svn_temp --username "$SVN_USER" --password "$SVN_PASS"
+          
+          # 2. .svn 폴더 제거
+          rm -rf ./svn_temp/.svn
+          
+          # 3. 현재 git 폴더 내용물 정리 후 svn 파일들로 덮어쓰기 (.git, .github 폴더 제외)
+          find . -maxdepth 1 ! -name '.' ! -name '.git' ! -name '.github' -exec rm -rf {} +
+          cp -r ./svn_temp/. .
+          
+          # 4. GitHub에 변경사항이 있는 경우에만 Commit & Push
+          git config --global user.name "SVN Sync Bot"
+          git config --global user.email "bot@users.noreply.github.com"
+          git add .
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-sync from RiouxSVN" && git push origin main)
