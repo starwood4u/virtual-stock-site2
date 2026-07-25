@@ -24,7 +24,7 @@ jobs:
         run: |
           echo "=== 1. SVN 체크아웃 시도 ==="
           # svn checkout 주소를 본인의 정확한 주소로 수정해주세요.
-          svn checkout https://riouxsvn.com/svn/your-project-name ./svn_temp --username "$SVN_USER" --password "$SVN_PASS" --non-interactive
+          svn checkout https://riouxsvn.com/svn/svn-1 ./svn_temp --username "$SVN_USER" --password "$SVN_PASS" --non-interactive
           
           echo "=== 2. 체크아웃된 폴더 확인 ==="
           ls -la ./svn_temp
