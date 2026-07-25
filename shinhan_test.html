@@ -1,0 +1,699 @@
+<!--
+  화면명 : 증권 메인 페이지
+  작성자 : H.YANG
+  작성일자: 2026-07-19
+  WR     : WR001-DP1 (신규작성)
+             WR001-DP2 로그인 기능 구현
+-->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>신한투자증권</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'맑은 고딕','Malgun Gothic','Apple SD Gothic Neo',sans-serif;font-size:13px;color:#333;background:#fff;}
+a{text-decoration:none;color:inherit;}
+ul,ol{list-style:none;}
+
+/* 상단 유틸리티 바 */
+.util-bar{background:#f5f5f5;border-bottom:1px solid #ddd;height:32px;line-height:32px;}
+.util-bar .inner{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;justify-content:flex-end;align-items:center;gap:15px;}
+.util-bar a{font-size:11px;color:#555;}
+.util-bar a:hover{color:#0046c2;}
+.util-bar .divider{color:#ccc;}
+
+/* 헤더 */
+.header{background:#fff;border-bottom:2px solid #0046c2;position:sticky;top:0;z-index:100;box-shadow:0 2px 6px rgba(0,0,0,0.08);}
+.header-inner{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;align-items:center;height:70px;gap:30px;}
+.logo{display:flex;align-items:center;gap:8px;margin-right:10px;}
+.logo-mark{width:38px;height:38px;background:linear-gradient(135deg,#0046c2,#003a9e);border-radius:6px;display:flex;align-items:center;justify-content:center;}
+.logo-mark span{color:#fff;font-size:18px;font-weight:900;}
+.logo-text{font-size:16px;font-weight:700;color:#0046c2;letter-spacing:-0.5px;white-space:nowrap;}
+.logo-sub{font-size:10px;color:#888;display:block;margin-top:-2px;}
+
+/* GNB */
+.gnb{flex:1;}
+.gnb>ul{display:flex;gap:0;}
+.gnb>ul>li{position:relative;}
+.gnb>ul>li>a{display:block;padding:0 18px;height:70px;line-height:70px;font-size:14px;font-weight:600;color:#222;transition:color .2s;}
+.gnb>ul>li:hover>a,.gnb>ul>li.active>a{color:#0046c2;}
+.gnb>ul>li>a::after{content:'';display:block;position:absolute;bottom:0;left:0;right:0;height:3px;background:#0046c2;transform:scaleX(0);transition:transform .2s;}
+.gnb>ul>li:hover>a::after{transform:scaleX(1);}
+
+/* 헤더 우측 */
+.header-right{display:flex;align-items:center;gap:10px;white-space:nowrap;}
+.btn-login{padding:7px 16px;border:1.5px solid #0046c2;border-radius:4px;color:#0046c2;font-size:12px;font-weight:600;}
+.btn-login:hover{background:#0046c2;color:#fff;}
+.btn-signup{padding:7px 16px;background:#0046c2;border-radius:4px;color:#fff;font-size:12px;font-weight:600;}
+.btn-signup:hover{background:#003a9e;}
+.header-search{width:160px;height:32px;border:1px solid #ddd;border-radius:16px;padding:0 12px;font-size:12px;outline:none;}
+.header-search:focus{border-color:#0046c2;}
+
+/* 히어로 섹션 */
+.hero{background:linear-gradient(120deg,#0a1c5c 0%,#0046c2 55%,#1a6fcf 100%);min-height:440px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:-80px;top:-80px;width:500px;height:500px;background:rgba(255,255,255,0.04);border-radius:50%;}
+.hero::after{content:'';position:absolute;right:100px;bottom:-100px;width:350px;height:350px;background:rgba(255,255,255,0.03);border-radius:50%;}
+.hero-inner{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;height:440px;align-items:stretch;}
+.hero-tabs{width:140px;display:flex;flex-direction:column;justify-content:center;padding:40px 0;gap:4px;z-index:1;}
+.hero-tabs a{display:block;padding:12px 16px;color:rgba(255,255,255,0.6);font-size:14px;font-weight:500;border-left:3px solid transparent;transition:all .2s;border-radius:0 4px 4px 0;}
+.hero-tabs a:hover,.hero-tabs a.active{color:#fff;border-left-color:#f59e0b;background:rgba(255,255,255,0.1);}
+.hero-content{flex:1;display:flex;align-items:center;padding:40px 30px;z-index:1;}
+.hero-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;width:100%;}
+.hero-card{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:12px;padding:24px 20px;backdrop-filter:blur(10px);transition:transform .2s,background .2s;}
+.hero-card:hover{transform:translateY(-3px);background:rgba(255,255,255,0.18);}
+.hero-card .tag{display:inline-block;background:#f59e0b;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-bottom:10px;}
+.hero-card .tag.green{background:#10b981;}
+.hero-card .tag.purple{background:#8b5cf6;}
+.hero-card h3{font-size:16px;font-weight:700;color:#fff;line-height:1.4;margin-bottom:8px;}
+.hero-card p{font-size:12px;color:rgba(255,255,255,0.75);line-height:1.6;}
+.hero-card .card-btn{display:inline-block;margin-top:12px;padding:6px 14px;background:#f59e0b;color:#fff;border-radius:4px;font-size:11px;font-weight:600;}
+.hero-card .card-btn.blue{background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);}
+
+/* 지수 바 */
+.index-bar{background:#1a2a5c;padding:0;overflow:hidden;}
+.index-inner{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;gap:0;}
+.index-item{flex:1;padding:12px 20px;display:flex;align-items:center;gap:12px;border-right:1px solid rgba(255,255,255,0.1);cursor:pointer;}
+.index-item:hover{background:rgba(255,255,255,0.05);}
+.index-item .name{font-size:12px;color:rgba(255,255,255,0.7);white-space:nowrap;}
+.index-item .value{font-size:15px;font-weight:700;color:#fff;}
+.index-item .change{font-size:11px;}
+.index-item .up{color:#ff5b5b;}
+.index-item .down{color:#4dabf7;}
+
+/* 빠른메뉴 + 공지 */
+.quick-wrap{background:#f8f9fc;border-bottom:1px solid #e8ecf5;}
+.quick-inner{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;gap:0;}
+.quick-tabs{display:flex;flex-direction:column;width:220px;border-right:1px solid #e0e5f0;}
+.quick-tab{padding:14px 20px;font-size:13px;font-weight:600;color:#555;cursor:pointer;border-bottom:1px solid #eef0f6;transition:all .2s;border-left:3px solid transparent;}
+.quick-tab.active,.quick-tab:hover{color:#0046c2;background:#fff;border-left-color:#0046c2;}
+.quick-content{flex:1;padding:20px 30px;background:#fff;}
+.quick-content h3{font-size:12px;color:#888;font-weight:600;margin-bottom:12px;text-transform:uppercase;letter-spacing:.5px;}
+.quick-links{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
+.quick-links a{display:inline-block;padding:6px 14px;background:#f0f4ff;border:1px solid #d8e2ff;border-radius:20px;font-size:12px;color:#0046c2;font-weight:500;}
+.quick-links a:hover{background:#0046c2;color:#fff;}
+.notice-wrap{width:260px;border-left:1px solid #e0e5f0;padding:20px 24px;}
+.notice-wrap h3{font-size:13px;font-weight:700;color:#222;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;}
+.notice-wrap h3 a{font-size:11px;color:#888;font-weight:400;}
+.notice-list li{padding:7px 0;border-bottom:1px solid #f0f0f0;font-size:12px;color:#444;line-height:1.4;}
+.notice-list li:last-child{border-bottom:none;}
+.notice-list li a:hover{color:#0046c2;}
+.notice-list .date{font-size:11px;color:#aaa;display:block;margin-top:2px;}
+
+/* 이벤트 섹션 */
+.section{padding:50px 0;}
+.section-inner{max-width:1200px;margin:0 auto;padding:0 20px;}
+.section-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:24px;}
+.section-title{font-size:22px;font-weight:700;color:#0a1c5c;}
+.section-title span{color:#0046c2;}
+.section-more{font-size:12px;color:#888;border:1px solid #ddd;padding:5px 12px;border-radius:3px;}
+.section-more:hover{border-color:#0046c2;color:#0046c2;}
+.event-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.event-card{border-radius:10px;overflow:hidden;border:1px solid #e8eaf0;transition:box-shadow .2s,transform .2s;cursor:pointer;}
+.event-card:hover{box-shadow:0 6px 20px rgba(0,70,194,0.12);transform:translateY(-2px);}
+.event-card-body{padding:22px 18px;}
+.event-card.blue-bg{background:#edf6ff;}
+.event-card.green-bg{background:#eefdf4;}
+.event-card.yellow-bg{background:#fffbe8;}
+.event-card.purple-bg{background:#faf3ff;}
+.event-card .ev-period{font-size:11px;color:#888;margin-bottom:6px;}
+.event-card .ev-title{font-size:15px;font-weight:700;color:#1a1a2e;line-height:1.4;margin-bottom:4px;}
+.event-card .ev-sub{font-size:12px;font-weight:600;margin-bottom:12px;}
+.event-card.blue-bg .ev-sub{color:#0046c2;}
+.event-card.green-bg .ev-sub{color:#10b981;}
+.event-card.yellow-bg .ev-sub{color:#b45309;}
+.event-card.purple-bg .ev-sub{color:#7c3aed;}
+.event-card .ev-img{width:90px;height:90px;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:40px;}
+
+/* 지금마켓에서는 */
+.market-section{background:#f8f9fc;padding:50px 0;}
+.market-tabs{display:flex;gap:0;border-bottom:2px solid #e0e5f0;margin-bottom:0;}
+.market-tab{padding:12px 28px;font-size:14px;font-weight:600;color:#888;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;}
+.market-tab.active,.market-tab:hover{color:#0046c2;border-bottom-color:#0046c2;}
+.market-content{background:#fff;border:1px solid #e0e5f0;border-top:none;display:flex;gap:0;}
+.market-desc{width:200px;padding:28px 24px;background:#0a1c5c;border-radius:0 0 0 8px;}
+.market-desc .tit{font-size:15px;font-weight:700;color:#fff;margin-bottom:8px;}
+.market-desc p{font-size:12px;color:rgba(255,255,255,0.65);line-height:1.6;margin-bottom:16px;}
+.market-desc .more-btn{display:inline-block;padding:6px 14px;border:1px solid rgba(255,255,255,0.3);color:#fff;font-size:11px;border-radius:3px;}
+.market-list{flex:1;padding:20px 24px;}
+.market-rank-item{display:flex;align-items:center;padding:12px 0;border-bottom:1px solid #f0f0f0;gap:14px;}
+.market-rank-item:last-child{border-bottom:none;}
+.rank-num{width:22px;height:22px;background:#0046c2;color:#fff;font-size:11px;font-weight:700;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.rank-num.gold{background:#f59e0b;}
+.rank-num.silver{background:#94a3b8;}
+.rank-num.bronze{background:#cd7c3a;}
+.rank-name{flex:1;font-size:13px;font-weight:600;color:#222;}
+.rank-info{text-align:right;font-size:12px;color:#888;}
+.rank-info strong{color:#222;display:block;}
+.rank-type{display:flex;gap:4px;margin-top:4px;}
+.rank-type span{font-size:10px;padding:2px 6px;background:#f0f4ff;color:#0046c2;border-radius:3px;}
+
+/* 시장 상위 종목 */
+.market-stocks{background:#fff;border-top:1px solid #e0e5f0;margin-top:0;}
+.stocks-inner{max-width:1200px;margin:0 auto;padding:30px 20px;}
+.stocks-title{font-size:16px;font-weight:700;color:#0a1c5c;margin-bottom:20px;}
+.stocks-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.stock-group h4{font-size:12px;font-weight:700;color:#555;padding:8px 0;border-bottom:2px solid #0046c2;margin-bottom:8px;display:flex;justify-content:space-between;}
+.stock-group h4 a{color:#0046c2;font-weight:400;font-size:11px;}
+.stock-item{display:flex;align-items:center;padding:7px 0;border-bottom:1px solid #f5f5f5;gap:8px;}
+.stock-item .s-name{flex:1;font-size:12px;color:#333;font-weight:500;}
+.stock-item .s-price{font-size:12px;font-weight:600;color:#222;}
+.stock-item .s-change{font-size:11px;min-width:45px;text-align:right;}
+.s-change.up{color:#e03030;}
+.s-change.down{color:#1a6fd4;}
+
+/* 자산관리 섹션 */
+.asset-section{padding:50px 0;background:linear-gradient(135deg,#0a1c5c 0%,#0046c2 100%);position:relative;overflow:hidden;}
+.asset-section::after{content:'';position:absolute;right:-100px;bottom:-100px;width:400px;height:400px;background:rgba(255,255,255,0.04);border-radius:50%;}
+.asset-title{font-size:24px;font-weight:700;color:#fff;margin-bottom:28px;}
+.asset-title span{color:#f59e0b;}
+.asset-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative;z-index:1;}
+.asset-card{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:10px;padding:24px 20px;cursor:pointer;transition:all .2s;}
+.asset-card:hover{background:rgba(255,255,255,0.18);transform:translateY(-3px);}
+.asset-card .icon{width:44px;height:44px;background:rgba(255,255,255,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px;}
+.asset-card h3{font-size:15px;font-weight:700;color:#fff;margin-bottom:8px;}
+.asset-card p{font-size:12px;color:rgba(255,255,255,0.7);line-height:1.6;}
+
+/* 하단 배너 */
+.btm-banners{background:#1a2a5c;padding:0;}
+.btm-banners-inner{max-width:1200px;margin:0 auto;padding:0 20px;display:grid;grid-template-columns:repeat(3,1fr);}
+.btm-banner{padding:22px 24px;border-right:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;gap:14px;cursor:pointer;transition:background .2s;}
+.btm-banner:hover{background:rgba(255,255,255,0.05);}
+.btm-banner:last-child{border-right:none;}
+.btm-banner .icon{width:40px;height:40px;background:rgba(255,255,255,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.btm-banner strong{display:block;font-size:13px;font-weight:700;color:#f59e0b;margin-bottom:2px;}
+.btm-banner p{font-size:11px;color:rgba(255,255,255,0.6);}
+
+/* 푸터 */
+.footer{background:#fff;border-top:1px solid #e0e5f0;}
+.footer-top{padding:30px 0;border-bottom:1px solid #eee;}
+.footer-top-inner{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;gap:40px;}
+.footer-menu-group h4{font-size:13px;font-weight:700;color:#333;margin-bottom:12px;}
+.footer-menu-group ul li{margin-bottom:6px;}
+.footer-menu-group ul li a{font-size:12px;color:#666;}
+.footer-menu-group ul li a:hover{color:#0046c2;}
+.footer-bottom{background:#f5f5f5;padding:24px 0;}
+.footer-bottom-inner{max-width:1200px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:flex-start;}
+.footer-logo{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+.footer-logo-mark{width:30px;height:30px;background:#0046c2;border-radius:4px;display:flex;align-items:center;justify-content:center;}
+.footer-logo-mark span{color:#fff;font-size:14px;font-weight:900;}
+.footer-logo-text{font-size:14px;font-weight:700;color:#0046c2;}
+.footer-info p{font-size:11px;color:#888;line-height:1.8;}
+.footer-info p strong{color:#555;}
+.footer-right{text-align:right;}
+.footer-sns{display:flex;gap:8px;margin-bottom:12px;justify-content:flex-end;}
+.sns-btn{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;border:1px solid #ddd;color:#555;}
+.sns-btn:hover{background:#0046c2;color:#fff;border-color:#0046c2;}
+.footer-cert{display:flex;gap:8px;}
+.cert-badge{padding:5px 10px;border:1px solid #ccc;border-radius:3px;font-size:10px;color:#666;}
+.footer-copy{font-size:11px;color:#aaa;margin-top:10px;}
+
+/* WM 가이드 섹션 */
+.wm-section{padding:50px 0;background:#fff;}
+.wm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.wm-card{border:1px solid #e8eaf0;border-radius:10px;overflow:hidden;transition:box-shadow .2s;}
+.wm-card:hover{box-shadow:0 6px 20px rgba(0,0,0,0.1);}
+.wm-card-img{height:160px;display:flex;align-items:center;justify-content:center;font-size:48px;}
+.wm-card-img.bg1{background:linear-gradient(135deg,#e0f0ff,#c0d8ff);}
+.wm-card-img.bg2{background:linear-gradient(135deg,#e0fff4,#b0f0d8);}
+.wm-card-img.bg3{background:linear-gradient(135deg,#fff0e0,#ffd8b0);}
+.wm-card-body{padding:18px;}
+.wm-card-body .cat{font-size:11px;color:#0046c2;font-weight:600;margin-bottom:4px;}
+.wm-card-body h3{font-size:14px;font-weight:700;color:#222;margin-bottom:6px;line-height:1.4;}
+.wm-card-body p{font-size:12px;color:#777;line-height:1.5;}
+
+/* 구분선 */
+.divider-line{height:1px;background:#eee;margin:0;}
+
+/* 접근성 */
+.skip-nav{position:absolute;top:-9999px;}
+</style>
+</head>
+<body>
+
+<a href="#container" class="skip-nav">본문 바로가기</a>
+
+<!-- 상단 유틸리티 -->
+<div class="util-bar">
+  <div class="inner">
+    <a href="#">로그인</a>
+    <span class="divider">|</span>
+    <a href="#">회원가입</a>
+    <span class="divider">|</span>
+    <a href="#">고객센터</a>
+    <span class="divider">|</span>
+    <a href="#">공지사항</a>
+    <span class="divider">|</span>
+    <a href="#">영업점 찾기</a>
+    <span class="divider">|</span>
+    <a href="#" style="color:#e03030;font-weight:600;">공모주 청약</a>
+  </div>
+</div>
+
+<!-- 헤더 -->
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-mark"><span>신</span></div>
+      <div>
+        <span class="logo-text">신한투자증권</span>
+        <span class="logo-sub">프로들의 자산관리</span>
+      </div>
+    </div>
+    <nav class="gnb">
+      <ul>
+        <li><a href="#">트레이딩</a></li>
+        <li><a href="#">금융상품</a></li>
+        <li><a href="#">자산관리</a></li>
+        <li><a href="#">연금</a></li>
+        <li><a href="#">인사이트</a></li>
+        <li><a href="#">고객서비스</a></li>
+        <li><a href="#" style="color:#e03030;">MY</a></li>
+      </ul>
+    </nav>
+    <div class="header-right">
+      <input type="text" class="header-search" placeholder="검색어를 입력하세요">
+      <a href="#" class="btn-login" onclick="handleLogin(); return false;">로그인</a>
+      <a href="#" class="btn-signup">계좌개설</a>
+    </div>
+  </div>
+</header>
+
+<!-- 히어로 섹션 -->
+<section class="hero" id="container">
+  <div class="hero-inner">
+    <div class="hero-tabs">
+      <a href="#" class="active">서비스</a>
+      <a href="#">추천상품</a>
+      <a href="#">투자정보</a>
+      <a href="#">핫클릭</a>
+    </div>
+    <div class="hero-content">
+      <div class="hero-cards">
+        <div class="hero-card">
+          <span class="tag">ELS 청약</span>
+          <h3>변동성 심한 시대에<br>대안 상품</h3>
+          <p>청약 가능한 <strong style="color:#f59e0b;">ELS</strong>는?<br>지금 확인해보세요</p>
+          <a href="#" class="card-btn">청약 신청하기</a>
+        </div>
+        <div class="hero-card">
+          <span class="tag green">공모주</span>
+          <h3>공모주, 여기서 한번에<br>신청하세요!</h3>
+          <p>계좌개설, 계좌정보 조회부터 청약까지<br>한 페이지에서 확인 가능해요.</p>
+          <a href="#" class="card-btn blue">Grand OPEN</a>
+        </div>
+        <div class="hero-card">
+          <span class="tag purple">아이 계좌</span>
+          <h3>우리 아이 첫 주식<br>계좌 만들기</h3>
+          <p>미래를 위한 선물,<br>지금 바로 시작하세요</p>
+          <a href="#" class="card-btn">계좌 개설하기</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 지수 바 -->
+<div class="index-bar">
+  <div class="index-inner">
+    <div class="index-item">
+      <span class="name">KOSPI</span>
+      <span class="value">2,556.61</span>
+      <span class="change up">▲ 12.34 (+0.49%)</span>
+    </div>
+    <div class="index-item">
+      <span class="name">KOSDAQ</span>
+      <span class="value">718.45</span>
+      <span class="change down">▼ 3.21 (-0.45%)</span>
+    </div>
+    <div class="index-item">
+      <span class="name">KOSPI200</span>
+      <span class="value">338.72</span>
+      <span class="change up">▲ 1.82 (+0.54%)</span>
+    </div>
+    <div class="index-item">
+      <span class="name">다우존스</span>
+      <span class="value">39,807.37</span>
+      <span class="change up">▲ 486.83 (+1.24%)</span>
+    </div>
+    <div class="index-item">
+      <span class="name">나스닥</span>
+      <span class="value">16,379.46</span>
+      <span class="change up">▲ 199.44 (+1.23%)</span>
+    </div>
+    <div class="index-item" style="border-right:none;">
+      <span class="name">원/달러</span>
+      <span class="value">1,374.50</span>
+      <span class="change down">▼ 3.50 (-0.25%)</span>
+    </div>
+  </div>
+</div>
+
+<!-- 빠른메뉴 + 공지사항 -->
+<div class="quick-wrap">
+  <div class="quick-inner">
+    <div class="quick-tabs">
+      <div class="quick-tab active">처음이신가요?</div>
+      <div class="quick-tab">편리하게 이용해보세요!</div>
+      <div class="quick-tab">퇴직연금 고객이신가요?</div>
+    </div>
+    <div class="quick-content">
+      <h3>첫 거래를 위한 가이드</h3>
+      <div class="quick-links">
+        <a href="#">신규고객가이드</a>
+        <a href="#">계좌개설</a>
+        <a href="#">ID 등록</a>
+        <a href="#">공동인증서 발급</a>
+        <a href="#">트레이딩 채널</a>
+      </div>
+      <h3>쉽고 편리하게 계좌개설부터 거래까지!</h3>
+      <div class="quick-links">
+        <a href="#">비대면계좌개설</a>
+        <a href="#">온라인계좌개설</a>
+        <a href="#">해외주식매매안내</a>
+        <a href="#">해외선물/FX마진</a>
+      </div>
+    </div>
+    <div class="notice-wrap">
+      <h3>새소식(공지) <a href="#">더보기</a></h3>
+      <ul class="notice-list">
+        <li><a href="#">[안내] 2026년 주주총회 전자투표 서비스 안내</a><span class="date">2026.04.25</span></li>
+        <li><a href="#">[중요] 해외주식 수수료 정책 변경 안내</a><span class="date">2026.04.22</span></li>
+        <li><a href="#">[공지] 모바일트레이딩시스템 정기점검 안내</a><span class="date">2026.04.20</span></li>
+        <li><a href="#">[안내] ISA 계좌 세제혜택 확대 적용 안내</a><span class="date">2026.04.18</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 이벤트 섹션 -->
+<section class="section" style="background:#fff;">
+  <div class="section-inner">
+    <div class="section-header">
+      <h2 class="section-title">진행중인 <span>이벤트</span></h2>
+      <a href="#" class="section-more">더보기 +</a>
+    </div>
+    <div class="event-grid">
+      <div class="event-card blue-bg">
+        <div class="event-card-body">
+          <p class="ev-period">26.04.20 ~ 26.06.12</p>
+          <h3 class="ev-title">금현물 거래하고<br>최대 100만원 기회</h3>
+          <p class="ev-sub">조건 충족 시 추첨</p>
+          <div class="ev-img">🥇</div>
+        </div>
+      </div>
+      <div class="event-card green-bg">
+        <div class="event-card-body">
+          <p class="ev-period">26.01.02 ~ 26.12.31</p>
+          <h3 class="ev-title">중개형 ISA<br>수수료 혜택</h3>
+          <p class="ev-sub">비대면 계좌 신청 가능!</p>
+          <div class="ev-img">💰</div>
+        </div>
+      </div>
+      <div class="event-card yellow-bg">
+        <div class="event-card-body">
+          <p class="ev-period">26.03.09 ~ 26.05.31</p>
+          <h3 class="ev-title">절세혜택<br>중개형 ISA</h3>
+          <p class="ev-sub">최대 51만원 상당 혜택</p>
+          <div class="ev-img">🎁</div>
+        </div>
+      </div>
+      <div class="event-card purple-bg">
+        <div class="event-card-body">
+          <p class="ev-period">26.04.01 ~ 26.12.31</p>
+          <h3 class="ev-title">온라인 수수료<br>제로베이스</h3>
+          <p class="ev-sub">국내주식</p>
+          <div class="ev-img">📉</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 지금마켓에서는 -->
+<section class="market-section">
+  <div class="section-inner">
+    <div class="section-header">
+      <h2 class="section-title">지금 <span>마켓에서는</span></h2>
+    </div>
+    <div class="market-tabs">
+      <div class="market-tab active">ELS/DLS</div>
+      <div class="market-tab">펀드</div>
+      <div class="market-tab">랩(Wrap)</div>
+    </div>
+    <div class="market-content">
+      <div class="market-desc">
+        <p class="tit">인기판매 ELS/DLS</p>
+        <p>최근 1개월 기준의 인기판매 ELS/DLS를 확인해보세요!</p>
+        <a href="#" class="more-btn">더보기</a>
+      </div>
+      <div class="market-list">
+        <div class="market-rank-item">
+          <span class="rank-num gold">1</span>
+          <div style="flex:1">
+            <div class="rank-name">KOSPI200·S&amp;P500 혼합형 ELS</div>
+            <div class="rank-type"><span>ELS</span><span>원금비보장</span></div>
+          </div>
+          <div class="rank-info"><strong>연 8.5%</strong>36개월</div>
+        </div>
+        <div class="market-rank-item">
+          <span class="rank-num silver">2</span>
+          <div style="flex:1">
+            <div class="rank-name">EURO STOXX50·KOSPI200 ELS</div>
+            <div class="rank-type"><span>ELS</span><span>원금비보장</span></div>
+          </div>
+          <div class="rank-info"><strong>연 7.8%</strong>36개월</div>
+        </div>
+        <div class="market-rank-item">
+          <span class="rank-num bronze">3</span>
+          <div style="flex:1">
+            <div class="rank-name">S&amp;P500·HSCEI 스텝다운 ELS</div>
+            <div class="rank-type"><span>DLS</span><span>원금비보장</span></div>
+          </div>
+          <div class="rank-info"><strong>연 9.2%</strong>36개월</div>
+        </div>
+      </div>
+    </div>
+    <!-- 주의사항 -->
+    <div style="margin-top:16px;padding:12px 16px;background:#fff;border:1px solid #e0e5f0;border-radius:6px;">
+      <ul style="list-style:disc;padding-left:16px;">
+        <li style="font-size:11px;color:#888;margin-bottom:4px;">당사는 금융투자상품에 관하여 충분히 설명할 의무가 있으며, 투자자는 투자에 앞서 그러한 설명을 충분히 들으시기 바랍니다.</li>
+        <li style="font-size:11px;color:#888;margin-bottom:4px;">집합투자증권을 취득하시기 전에 투자대상, 보수·수수료 및 환매방법 등에 관하여 (간이)투자설명서를 반드시 읽어보시기 바랍니다.</li>
+        <li style="font-size:11px;color:#888;">금융투자상품은 운용결과 투자원금의 손실이 발생할 수 있으며 그 손실은 투자자에게 귀속됩니다.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 시장 상위 종목 -->
+<div class="market-stocks">
+  <div class="stocks-inner">
+    <h3 class="stocks-title">시장 상위 종목</h3>
+    <div class="stocks-grid">
+      <div class="stock-group">
+        <h4>거래량 상위 <a href="#">더보기</a></h4>
+        <div class="stock-item"><span class="s-name">삼성전자</span><span class="s-price">74,400</span><span class="s-change up">+1.64%</span></div>
+        <div class="stock-item"><span class="s-name">SK하이닉스</span><span class="s-price">192,500</span><span class="s-change up">+2.39%</span></div>
+        <div class="stock-item"><span class="s-name">POSCO홀딩스</span><span class="s-price">387,000</span><span class="s-change down">-0.77%</span></div>
+      </div>
+      <div class="stock-group">
+        <h4>주가상승률 상위 <a href="#">더보기</a></h4>
+        <div class="stock-item"><span class="s-name">에코프로비엠</span><span class="s-price">141,200</span><span class="s-change up">+9.87%</span></div>
+        <div class="stock-item"><span class="s-name">LG에너지솔루션</span><span class="s-price">368,000</span><span class="s-change up">+7.62%</span></div>
+        <div class="stock-item"><span class="s-name">현대모비스</span><span class="s-price">267,500</span><span class="s-change up">+5.31%</span></div>
+      </div>
+      <div class="stock-group">
+        <h4>외국인 연속매수 <a href="#">더보기</a></h4>
+        <div class="stock-item"><span class="s-name">삼성전자</span><span class="s-price">74,400</span><span class="s-change" style="color:#555;">12일</span></div>
+        <div class="stock-item"><span class="s-name">NAVER</span><span class="s-price">187,300</span><span class="s-change" style="color:#555;">8일</span></div>
+        <div class="stock-item"><span class="s-name">현대차</span><span class="s-price">238,000</span><span class="s-change" style="color:#555;">6일</span></div>
+      </div>
+      <div class="stock-group">
+        <h4>실시간 인기종목 <a href="#">더보기</a></h4>
+        <div class="stock-item"><span class="s-name">삼성전자</span><span class="s-price">74,400</span><span class="s-change up">+1.64%</span></div>
+        <div class="stock-item"><span class="s-name">카카오</span><span class="s-price">45,850</span><span class="s-change down">-0.97%</span></div>
+        <div class="stock-item"><span class="s-name">셀트리온</span><span class="s-price">172,300</span><span class="s-change up">+3.24%</span></div>
+      </div>
+    </div>
+    <p style="font-size:11px;color:#aaa;margin-top:14px;">기준 2026.04.28 15:30</p>
+  </div>
+</div>
+
+<!-- WM 가이드 -->
+<section class="wm-section">
+  <div class="section-inner">
+    <div class="section-header">
+      <h2 class="section-title">WM <span>가이드</span></h2>
+      <a href="#" class="section-more">더보기 +</a>
+    </div>
+    <div class="wm-grid">
+      <div class="wm-card">
+        <div class="wm-card-img bg1">📊</div>
+        <div class="wm-card-body">
+          <p class="cat">리서치 투자가이드</p>
+          <h3>Daily 신한 생각</h3>
+          <p>오늘의 주식시장과 상품시장의 투자전략을 전문가의 시각으로 분석합니다.</p>
+        </div>
+      </div>
+      <div class="wm-card">
+        <div class="wm-card-img bg2">💹</div>
+        <div class="wm-card-body">
+          <p class="cat">주식전략/시황</p>
+          <h3>관세전쟁 속 주목해야 할 국내 방어주</h3>
+          <p>글로벌 불확실성이 높아지는 시기, 포트폴리오 방어를 위한 전략을 제시합니다.</p>
+        </div>
+      </div>
+      <div class="wm-card">
+        <div class="wm-card-img bg3">🌐</div>
+        <div class="wm-card-body">
+          <p class="cat">경제</p>
+          <h3>2026 하반기 금리 전망과 투자 시사점</h3>
+          <p>연준의 통화정책 방향성과 국내외 금리 변화가 투자시장에 미치는 영향을 분석합니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 자산관리 섹션 -->
+<section class="asset-section">
+  <div class="section-inner">
+    <h2 class="asset-title">자산관리, <span>신한투자증권</span>과 함께 하세요!</h2>
+    <div class="asset-grid">
+      <div class="asset-card">
+        <div class="icon">📋</div>
+        <h3>전계좌현황</h3>
+        <p>나의 계좌별 자산현황을 한번에 보고 싶으시다면 전계좌현황에서 확인해보세요.</p>
+      </div>
+      <div class="asset-card">
+        <div class="icon">📈</div>
+        <h3>자산현황분석</h3>
+        <p>보유펀드 및 종목 수익률 현황 및 나의 자산현황을 한눈에 확인해보세요.</p>
+      </div>
+      <div class="asset-card">
+        <div class="icon">🏆</div>
+        <h3>베스트 상품</h3>
+        <p>신한투자증권의 베스트 판매 상품들을 만나보세요.</p>
+      </div>
+      <div class="asset-card">
+        <div class="icon">🎯</div>
+        <h3>연금자산</h3>
+        <p>노후만큼은 쉽게 미리 미리, 신한투자증권이 당신의 여유로운 은퇴 준비를 도와드립니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 하단 배너 -->
+<div class="btm-banners">
+  <div class="btm-banners-inner">
+    <div class="btm-banner">
+      <div class="icon">📱</div>
+      <div>
+        <strong>투자플러스</strong>
+        <p>어려운 주식을 쉽게 투자하는 방법!</p>
+      </div>
+    </div>
+    <div class="btm-banner">
+      <div class="icon">👤</div>
+      <div>
+        <strong>신규 고객 가이드</strong>
+        <p>계좌개설부터 인증서 발급까지</p>
+      </div>
+    </div>
+    <div class="btm-banner">
+      <div class="icon">🛡️</div>
+      <div>
+        <strong>보이스 피싱</strong>
+        <p>피해신고 및 예방 안내</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 푸터 -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-top-inner">
+      <div class="footer-menu-group">
+        <h4>회사소개</h4>
+        <ul>
+          <li><a href="#">회사개요</a></li>
+          <li><a href="#">윤리경영</a></li>
+          <li><a href="#">사회공헌</a></li>
+          <li><a href="#">IR정보</a></li>
+          <li><a href="#">채용정보</a></li>
+        </ul>
+      </div>
+      <div class="footer-menu-group">
+        <h4>고객센터</h4>
+        <ul>
+          <li><a href="#">공지사항</a></li>
+          <li><a href="#">자주하는 질문</a></li>
+          <li><a href="#">이용약관</a></li>
+          <li><a href="#">개인정보처리방침</a></li>
+          <li><a href="#">금융소비자포털</a></li>
+        </ul>
+      </div>
+      <div class="footer-menu-group">
+        <h4>금융정보</h4>
+        <ul>
+          <li><a href="#">투자자보호</a></li>
+          <li><a href="#">분쟁조정</a></li>
+          <li><a href="#">전자민원접수</a></li>
+          <li><a href="#">불건전영업행위신고</a></li>
+        </ul>
+      </div>
+      <div class="footer-menu-group">
+        <h4>관련사이트</h4>
+        <ul>
+          <li><a href="#">신한금융그룹</a></li>
+          <li><a href="#">신한은행</a></li>
+          <li><a href="#">신한카드</a></li>
+          <li><a href="#">신한생명</a></li>
+          <li><a href="#">신한캐피탈</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-inner">
+      <div>
+        <div class="footer-logo">
+          <div class="footer-logo-mark"><span>신</span></div>
+          <span class="footer-logo-text">신한투자증권</span>
+        </div>
+        <div class="footer-info">
+          <p><strong>대표이사</strong> 김상태 &nbsp;|&nbsp; <strong>사업자등록번호</strong> 208-81-06822 &nbsp;|&nbsp; <strong>금융투자업인가번호</strong> 제06-001호</p>
+          <p><strong>주소</strong> 서울특별시 영등포구 여의대로 70 신한금융투자타워</p>
+          <p><strong>고객센터</strong> 1588-0365 &nbsp;|&nbsp; <strong>해외주식</strong> 1588-0365 &nbsp;|&nbsp; <strong>FAX</strong> 02-3772-6000</p>
+          <p style="margin-top:6px;">© 2026 Shinhan Investment Corp. All Rights Reserved.</p>
+        </div>
+      </div>
+      <div class="footer-right">
+        <div class="footer-sns">
+          <a href="#" class="sns-btn">Y</a>
+          <a href="#" class="sns-btn">f</a>
+          <a href="#" class="sns-btn">N</a>
+          <a href="#" class="sns-btn">📱</a>
+        </div>
+        <div class="footer-cert">
+          <span class="cert-badge">WA인증</span>
+          <span class="cert-badge">개인정보보호</span>
+          <span class="cert-badge">ISMS인증</span>
+        </div>
+        <p class="footer-copy">금융투자상품은 예금자보호법에 따라 보호되지 않습니다.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+function handleLogin() {
+  let result = 100 + 10;
+  alert('로그인'+result);
+}
+</script>
+</body>
+</html>
