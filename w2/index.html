@@ -15,21 +15,6 @@
       name="description"
       content="투자 현황, 시장 지표, 금융 상품을 한눈에 살펴보는 ONVEST 증권 메인 페이지"
     />
-    <!--
-      보안 헤더 안내 (서버 배포 시 HTTP 응답 헤더로 반드시 설정)
-      ---------------------------------------------------------------
-      X-Frame-Options: DENY
-      Content-Security-Policy: default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none'
-
-      [Nginx]  add_header X-Frame-Options "DENY";
-               add_header Content-Security-Policy "...";
-      [Apache] Header always set X-Frame-Options "DENY"
-               Header always set Content-Security-Policy "..."
-    -->
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; object-src 'none'; base-uri 'self';"
-    />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link rel="stylesheet" href="styles.css" />
     <script src="script.js" defer></script>
