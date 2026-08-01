@@ -1,0 +1,307 @@
+<!--
+  Created : 2026-08-01
+  Author : 서지우
+  Descript : ONVEST 퇴직연금 나의 총자산
+  WR : WR0301-DP1 퇴직연금 나의 총자산 신규 생성
+-->
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>나의 총자산 | ONVEST 퇴직연금</title>
+    <meta
+      name="description"
+      content="퇴직연금 적립금 현황, 제도별 자산구성, 보유상품 잔고를 한눈에 확인하는 ONVEST 퇴직연금 페이지"
+    />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="utility">
+        <div class="shell utility-inner">
+          <p>오늘의 금융을 더 가까이</p>
+          <nav aria-label="유틸리티 메뉴">
+            <a href="#">로그인</a>
+            <a href="#">계좌개설</a>
+            <a href="#">인증센터</a>
+            <a href="#">고객지원</a>
+          </nav>
+        </div>
+      </div>
+
+      <div class="shell main-header">
+        <a class="logo" href="index.html" aria-label="ONVEST 홈">
+          <span class="logo-mark">O</span>
+          <span class="logo-name">ON<span>VEST</span></span>
+        </a>
+        <nav class="gnb" aria-label="주요 메뉴">
+          <a href="index.html">나의 자산</a>
+          <a href="wealth-management.html">자산관리</a>
+          <a class="active" href="retirement-assets.html">연금</a>
+          <a href="#">트레이딩</a>
+          <a href="#">투자정보</a>
+          <a href="#">상품</a>
+        </nav>
+        <div class="header-actions">
+          <button class="icon-button" type="button" aria-label="검색">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="10.7" cy="10.7" r="5.7"></circle>
+              <path d="m15 15 5 5"></path>
+            </svg>
+          </button>
+          <button class="menu-button" type="button" aria-label="전체 메뉴">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- 페이지 제목 + 탭 -->
+      <section class="page-intro">
+        <div class="shell page-intro-grid">
+          <div class="page-intro-copy">
+            <p class="eyebrow">RETIREMENT PENSION</p>
+            <h1>나의 총자산</h1>
+            <p class="hero-description">퇴직연금 적립금 현황을 한눈에 확인하세요.</p>
+          </div>
+          <div class="page-intro-visual" aria-hidden="true">
+            <svg viewBox="0 0 380 320">
+              <defs>
+                <linearGradient id="rks-coin" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#ffffff" />
+                  <stop offset="100%" stop-color="#f3f7ff" />
+                </linearGradient>
+              </defs>
+              <circle cx="284" cy="86" r="104" fill="rgba(29,113,255,.14)" />
+              <circle cx="96" cy="252" r="42" fill="rgba(108,229,214,.5)" />
+
+              <g transform="translate(64,150)">
+                <ellipse cx="46" cy="70" rx="46" ry="14" fill="#c9ddff" />
+                <rect x="0" y="42" width="92" height="28" fill="#1b64ef" />
+                <ellipse cx="46" cy="42" rx="46" ry="14" fill="#2c7bff" />
+                <ellipse cx="46" cy="28" rx="46" ry="14" fill="#c9ddff" />
+                <rect x="0" y="14" width="92" height="14" fill="#eaf3ff" />
+                <ellipse cx="46" cy="14" rx="46" ry="14" fill="#fff" stroke="#dbe6fb" stroke-width="1.5" />
+                <text x="46" y="19" font-family="Outfit, sans-serif" font-size="12" font-weight="700" fill="#1b64ef" text-anchor="middle">IRP</text>
+              </g>
+
+              <g transform="translate(150,40)">
+                <rect x="0" y="0" width="140" height="112" rx="14" fill="url(#rks-coin)" stroke="#dbe6fb" stroke-width="1.5" />
+                <text x="18" y="30" font-family="Noto Sans KR, sans-serif" font-size="11" fill="#73809b">누적 수익률</text>
+                <text x="18" y="58" font-family="Outfit, sans-serif" font-size="26" font-weight="700" fill="#1b64ef">+9.6%</text>
+                <path d="M18 88 L40 76 L58 84 L80 62 L102 70 L122 50" fill="none" stroke="#1b64ef" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+              </g>
+
+              <g transform="translate(238,190)">
+                <circle cx="24" cy="24" r="24" fill="#6ce5d6" />
+                <path d="M14 24 l7 7 15-15" fill="none" stroke="#0b3a63" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div class="shell page-tabs-shell">
+          <nav class="page-tabs" aria-label="퇴직연금 메뉴">
+            <a class="active" href="#">나의 총자산</a>
+            <a href="#">입금하기</a>
+            <a href="#">신규 입금 매수 예약</a>
+            <a href="#">상품 매수</a>
+            <a href="#">증명서 발급</a>
+          </nav>
+        </div>
+      </section>
+
+      <!-- 총자산 요약 -->
+      <section class="market section-space">
+        <div class="shell">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">TOTAL ASSETS</p>
+              <h2>총자산 요약</h2>
+            </div>
+            <p class="update-time">08.01 기준</p>
+          </div>
+          <div class="market-grid">
+            <article class="market-card">
+              <div class="market-top">
+                <h3>총 적립금</h3>
+                <span class="badge up">전체</span>
+              </div>
+              <strong>29,480,000원</strong>
+              <p class="up">▲ 전월대비 <span>+320,000원</span></p>
+            </article>
+            <article class="market-card">
+              <div class="market-top">
+                <h3>평가손익</h3>
+                <span class="badge up">수익</span>
+              </div>
+              <strong>+2,580,000원</strong>
+              <p class="up">▲ 누적수익률 <span>+9.6%</span></p>
+            </article>
+            <article class="market-card">
+              <div class="market-top">
+                <h3>이번달 부담금</h3>
+                <span class="badge overseas">예정</span>
+              </div>
+              <strong>420,000원</strong>
+              <p class="down">▽ 입금예정일 <span>08.25</span></p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 제도별 자산구성 -->
+      <section class="section-space">
+        <div class="shell">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">ASSET ALLOCATION</p>
+              <h2>제도별 자산구성</h2>
+            </div>
+          </div>
+          <div class="allocation-list">
+            <div class="allocation-row">
+              <div class="allocation-top">
+                <span>개인형 IRP</span>
+                <strong>18,240,000원</strong>
+              </div>
+              <div class="allocation-bar"><span class="allocation-fill" style="width: 62%"></span></div>
+              <span class="allocation-pct">62%</span>
+            </div>
+            <div class="allocation-row">
+              <div class="allocation-top">
+                <span>DC형 (확정기여형)</span>
+                <strong>8,140,000원</strong>
+              </div>
+              <div class="allocation-bar"><span class="allocation-fill" style="width: 28%"></span></div>
+              <span class="allocation-pct">28%</span>
+            </div>
+            <div class="allocation-row">
+              <div class="allocation-top">
+                <span>DB형 (확정급여형)</span>
+                <strong>3,100,000원</strong>
+              </div>
+              <div class="allocation-bar"><span class="allocation-fill" style="width: 10%"></span></div>
+              <span class="allocation-pct">10%</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 보유 상품 잔고 -->
+      <section class="section-space">
+        <div class="shell">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">HOLDINGS</p>
+              <h2>보유 상품 잔고</h2>
+            </div>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>상품명</th>
+                <th>유형</th>
+                <th>매입금액</th>
+                <th>평가금액</th>
+                <th>수익률</th>
+                <th>비중</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ONVEST TDF 2045</td>
+                <td>펀드</td>
+                <td>9,000,000원</td>
+                <td>9,860,000원</td>
+                <td>+9.6%</td>
+                <td>33%</td>
+              </tr>
+              <tr>
+                <td>정기예금(1년)</td>
+                <td>원리금보장</td>
+                <td>8,000,000원</td>
+                <td>8,220,000원</td>
+                <td>+2.8%</td>
+                <td>28%</td>
+              </tr>
+              <tr>
+                <td>ONVEST 배당인컴펀드</td>
+                <td>펀드</td>
+                <td>6,500,000원</td>
+                <td>7,120,000원</td>
+                <td>+9.5%</td>
+                <td>24%</td>
+              </tr>
+              <tr>
+                <td>한국전력공사177-1</td>
+                <td>채권</td>
+                <td>4,000,000원</td>
+                <td>4,280,000원</td>
+                <td>+7.0%</td>
+                <td>15%</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="section-subtitle">※ 화면 확인용 예시 데이터이며, 실제 자산 정보가 아닙니다.</p>
+        </div>
+      </section>
+
+      <!-- 가이드 다운로드 -->
+      <section class="market section-space">
+        <div class="shell">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">GUIDE</p>
+              <h2>가이드 다운로드</h2>
+            </div>
+          </div>
+          <div class="promo-grid">
+            <div class="guide-card">
+              <span>퇴직연금 DC 운용가이드</span>
+              <a href="#">다운로드 →</a>
+            </div>
+            <div class="guide-card">
+              <span>개인형 IRP 가이드</span>
+              <a href="#">다운로드 →</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 연금자산관리센터 -->
+      <div class="shell">
+        <div class="compliance-note">
+          <p>연금자산관리센터 <strong style="color:var(--navy-deep)">1588-1122</strong> 평일 09:00 - 18:00</p>
+          <nav aria-label="관련 링크">
+            <a href="#">가입자 교육 신청</a>
+            <a href="#">퇴직연금 제도안내</a>
+          </nav>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="shell footer-inner">
+        <div>
+          <a class="logo footer-logo" href="index.html" aria-label="ONVEST 홈">
+            <span class="logo-mark">O</span>
+            <span class="logo-name">ON<span>VEST</span></span>
+          </a>
+          <p>고객센터 <strong>1588-0000</strong> <span>평일 08:00 - 18:00</span></p>
+        </div>
+        <div class="footer-right">
+          <nav aria-label="푸터 메뉴">
+            <a href="#">회사소개</a>
+            <a href="#">이용약관</a>
+            <a href="#"><strong>개인정보처리방침</strong></a>
+            <a href="#">보호금융상품등록부</a>
+          </nav>
+          <p>본 페이지는 UI/UX 시안을 위한 가상의 증권 서비스입니다.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

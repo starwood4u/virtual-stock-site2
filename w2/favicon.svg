@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="favicon-mark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1d71ff" />
+      <stop offset="100%" stop-color="#103ba7" />
+    </linearGradient>
+  </defs>
+  <circle cx="32" cy="32" r="32" fill="url(#favicon-mark)" />
+  <text
+    x="32"
+    y="43"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-style="italic"
+    font-weight="700"
+    font-size="34"
+    fill="#fff"
+    text-anchor="middle"
+  >O</text>
+</svg>

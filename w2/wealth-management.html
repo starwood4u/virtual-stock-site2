@@ -1,0 +1,278 @@
+<!--
+  Created : 2026-08-01
+  Author : 이서윤
+  Descript : ONVEST 회사채(장외채권)
+  WR : WR0201-DP1 자산관리 화면 추가
+-->
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>자산관리 | ONVEST</title>
+    <meta
+      name="description"
+      content="자산관리 상품을 검색하고 비교하는 ONVEST 자산관리 페이지"
+    />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="wealth-management.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="utility">
+        <div class="shell utility-inner">
+          <p>오늘의 금융을 더 가까이</p>
+          <nav aria-label="유틸리티 메뉴">
+            <a href="#">로그인</a>
+            <a href="#">계좌개설</a>
+            <a href="#">인증센터</a>
+            <a href="#">고객지원</a>
+          </nav>
+        </div>
+      </div>
+
+      <div class="shell main-header">
+        <a class="logo" href="index.html" aria-label="ONVEST 홈">
+          <span class="logo-mark">O</span>
+          <span class="logo-name">ON<span>VEST</span></span>
+        </a>
+        <nav class="gnb" aria-label="주요 메뉴">
+          <a href="index.html">나의 자산</a>
+          <a class="active" href="wealth-management.html">자산관리</a>
+          <a href="retirement-assets.html">연금</a>
+          <a href="#">트레이딩</a>
+          <a href="#">투자정보</a>
+          <a href="#">상품</a>
+        </nav>
+        <div class="header-actions">
+          <button class="icon-button" type="button" aria-label="검색">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="10.7" cy="10.7" r="5.7"></circle>
+              <path d="m15 15 5 5"></path>
+            </svg>
+          </button>
+          <button class="menu-button" type="button" aria-label="전체 메뉴">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- 페이지 제목 + 탭 -->
+      <section class="page-intro">
+        <div class="shell page-intro-grid">
+          <div class="page-intro-copy">
+            <p class="eyebrow">WEALTH MANAGEMENT</p>
+            <h1>자산관리</h1>
+            <p class="hero-description">자산관리 상품을 검색하고 비교해보세요.</p>
+          </div>
+          <div class="page-intro-visual" aria-hidden="true">
+            <svg viewBox="0 0 380 320">
+              <defs>
+                <linearGradient id="bond-doc" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#ffffff" />
+                  <stop offset="100%" stop-color="#f3f7ff" />
+                </linearGradient>
+              </defs>
+              <circle cx="290" cy="90" r="110" fill="rgba(29,113,255,.14)" />
+              <circle cx="90" cy="250" r="46" fill="rgba(108,229,214,.5)" />
+
+              <g transform="translate(88,46)">
+                <rect x="0" y="0" width="204" height="248" rx="14" fill="url(#bond-doc)" stroke="#dbe6fb" stroke-width="1.5" />
+                <rect x="24" y="30" width="120" height="12" rx="6" fill="#102765" />
+                <rect x="24" y="54" width="156" height="7" rx="3.5" fill="#dbe6fb" />
+                <rect x="24" y="70" width="140" height="7" rx="3.5" fill="#dbe6fb" />
+                <rect x="24" y="86" width="156" height="7" rx="3.5" fill="#dbe6fb" />
+                <rect x="24" y="102" width="110" height="7" rx="3.5" fill="#dbe6fb" />
+
+                <circle cx="152" cy="176" r="34" fill="#1b64ef" opacity=".12" />
+                <circle cx="152" cy="176" r="24" fill="#1b64ef" />
+                <text x="152" y="181" font-family="Outfit, sans-serif" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">AAA</text>
+
+                <rect x="24" y="200" width="76" height="24" rx="12" fill="#eaf3ff" />
+                <text x="62" y="216" font-family="Outfit, sans-serif" font-size="11" font-weight="700" fill="#1b64ef" text-anchor="middle">BOND</text>
+              </g>
+
+              <g transform="translate(30,150)">
+                <rect x="0" y="52" width="14" height="26" rx="3" fill="#9bd1ff" />
+                <rect x="20" y="38" width="14" height="40" rx="3" fill="#6ce5d6" />
+                <rect x="40" y="20" width="14" height="58" rx="3" fill="#1b64ef" />
+              </g>
+
+              <g transform="translate(266,214)">
+                <rect x="0" y="0" width="92" height="46" rx="10" fill="#fff" stroke="#e3e9f2" stroke-width="1.2" />
+                <text x="46" y="19" font-family="Noto Sans KR, sans-serif" font-size="10" fill="#73809b" text-anchor="middle">매수수익률</text>
+                <text x="46" y="35" font-family="Outfit, sans-serif" font-size="15" font-weight="700" fill="#1b64ef" text-anchor="middle">4.55%</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div class="shell page-tabs-shell">
+          <nav class="page-tabs" aria-label="채권 메뉴">
+            <a class="active" href="#">전체상품</a>
+            <a href="#">내역조회·취소</a>
+          </nav>
+        </div>
+      </section>
+
+      <!-- 검색 / 필터 영역 -->
+      <section class="search-section">
+        <div class="shell">
+          <div class="search-bar">
+            <label for="bond-name">채권명</label>
+            <input id="bond-name" type="text" placeholder="채권명을 입력하세요" />
+            <select aria-label="채권 구분">
+              <option>전체</option>
+              <option>회사채</option>
+              <option>국공채</option>
+            </select>
+            <button class="primary-button small-button" type="button" onclick="searchBond()">검색</button>
+            <button class="ghost-button" type="button" aria-label="상품비교 새창열림">비교하기</button>
+            <span class="filter-note">채권신용등급 <a href="#">자세히보기 →</a></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 매수 리스트 -->
+      <section class="section-space">
+        <div class="shell">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>선택</th>
+                <th>종목명</th>
+                <th>만기일</th>
+                <th>투자기간</th>
+                <th>매수수익률<br />(세전, 연)</th>
+                <th>은행환산수익률<br />(세전, 연)</th>
+                <th>신용등급</th>
+                <th>상품위험등급</th>
+                <th>매수<br />(법인/일반/ISA전용)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="checkbox" aria-label="한국전력공사177-1 선택" /></td>
+                <td>한국전력공사177-1</td>
+                <td>2027-08-01</td>
+                <td>12개월</td>
+                <td>3.85%</td>
+                <td>4.52%</td>
+                <td>AAA</td>
+                <td>5등급<br />(매우낮은위험)</td>
+                <td>
+                  <div class="buy-cell">
+                    <span class="buy-eligibility">일반</span>
+                    <button class="buy-button" type="button">매수</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" aria-label="SK하이닉스25-3 선택" /></td>
+                <td>SK하이닉스25-3</td>
+                <td>2028-02-15</td>
+                <td>18개월</td>
+                <td>4.12%</td>
+                <td>4.83%</td>
+                <td>AA+</td>
+                <td>4등급<br />(낮은위험)</td>
+                <td>
+                  <div class="buy-cell">
+                    <span class="buy-eligibility">일반/ISA전용</span>
+                    <button class="buy-button" type="button">매수</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" aria-label="롯데카드26-1 선택" /></td>
+                <td>롯데카드26-1</td>
+                <td>2029-05-20</td>
+                <td>24개월</td>
+                <td>4.55%</td>
+                <td>5.31%</td>
+                <td>AA-</td>
+                <td>4등급<br />(낮은위험)</td>
+                <td>
+                  <div class="buy-cell">
+                    <span class="buy-eligibility">일반</span>
+                    <button class="buy-button" type="button">매수</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" aria-label="신한카드25-9 선택" /></td>
+                <td>신한카드25-9</td>
+                <td>2027-11-10</td>
+                <td>9개월</td>
+                <td>3.62%</td>
+                <td>4.24%</td>
+                <td>AA+</td>
+                <td>5등급<br />(매우낮은위험)</td>
+                <td>
+                  <div class="buy-cell">
+                    <span class="buy-eligibility">법인/일반</span>
+                    <button class="buy-button" type="button">매수</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="section-subtitle">※ 화면 확인용 예시 데이터이며, 실제 청약 상품 정보가 아닙니다.</p>
+        </div>
+      </section>
+
+      <!-- 확인하세요! -->
+      <section class="section-space">
+        <div class="shell">
+          <div class="disclosure">
+            <h2>확인하세요!</h2>
+            <ol>
+              <li>장외채권 매매시간 : 평일 오전 9:00 ~ 17:00</li>
+              <li>매매단위 : 천원</li>
+              <li>채권은 시황 및 경과기간 등에 따라 수익률과 가격이 변동될 수 있습니다.</li>
+              <li>투자자는 금융투자상품에 대하여 ONVEST로부터 충분한 설명을 받을 권리가 있으며, 투자전 상품설명서 및 신용평가서를 반드시 읽어보시기 바랍니다.</li>
+              <li>채권은 예금자보호법에 따라 보호되지 않습니다.</li>
+              <li>채권은 자산가격 변동, 환율 변동, 신용등급 하락 등에 따라 투자원금의 손실(0~100%)이 발생할 수 있으며, 그 손실은 투자자에게 귀속됩니다.</li>
+              <li>채권은 발행사의 신용위험(부도, 파산 등)에 따른 원금손실이 발생할 수 있습니다.</li>
+              <li>당사는 당사 발행 외 채권에 대한 중도환매 시 원리금 지급의무가 없으며, 채권은 중도매매시 시장상황에 따라 원금손실 및 유동성 제한 등이 발생할 수 있습니다.</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- 준법감시인 심사 정보 -->
+      <div class="shell">
+        <div class="compliance-note">
+          <p>ONVEST 준법감시인 심사필 제25-1387호(2025년 07월 17일 ~ 2026년 07월 15일)</p>
+          <nav aria-label="관련 링크">
+            <a href="#">투자상담문의</a>
+            <a href="#">금융용어사전</a>
+          </nav>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="shell footer-inner">
+        <div>
+          <a class="logo footer-logo" href="index.html" aria-label="ONVEST 홈">
+            <span class="logo-mark">O</span>
+            <span class="logo-name">ON<span>VEST</span></span>
+          </a>
+          <p>고객센터 <strong>1588-0000</strong> <span>평일 08:00 - 18:00</span></p>
+        </div>
+        <div class="footer-right">
+          <nav aria-label="푸터 메뉴">
+            <a href="#">회사소개</a>
+            <a href="#">이용약관</a>
+            <a href="#"><strong>개인정보처리방침</strong></a>
+            <a href="#">보호금융상품등록부</a>
+          </nav>
+          <p>본 페이지는 UI/UX 시안을 위한 가상의 증권 서비스입니다.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

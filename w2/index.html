@@ -3,7 +3,8 @@
   Author : 양현우
   Descript : ONVEST 메인
   WR : WR0101-DP1 (신규생성)
-          WR0101-DP2 계좌개설 기능 구현
+       WR0101-DP2 계좌개설 기능 구현
+       WR0201-DP1 자산관리 화면 추가
 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -15,7 +16,7 @@
       name="description"
       content="투자 현황, 시장 지표, 금융 상품을 한눈에 살펴보는 ONVEST 증권 메인 페이지"
     />
-    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="stylesheet" href="styles.css" />
     <script src="script.js" defer></script>
   </head>
@@ -39,9 +40,9 @@
           <span class="logo-name">ON<span>VEST</span></span>
         </a>
         <nav class="gnb" aria-label="주요 메뉴">
-          <a href="#">나의 자산</a>
-          <a href="#">자산관리</a>
-          <a href="#">연금</a>
+          <a class="active" href="index.html">나의 자산</a>
+          <a href="wealth-management.html">자산관리</a>
+          <a href="retirement-assets.html">연금</a>
           <a href="#">트레이딩</a>
           <a href="#">투자정보</a>
           <a href="#">상품</a>
