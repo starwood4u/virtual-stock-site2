@@ -4,6 +4,8 @@
   Descript : ONVEST 자산관리
   WR : WR0201-DP1 자산관리 화면 추가
 --*/
+Logger.init();
+
 function searchBond() {
   //alert('검색');
 
