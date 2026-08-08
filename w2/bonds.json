@@ -1,0 +1,45 @@
+[
+  {
+    "name": "한국전력공사177-1",
+    "maturityDate": "2027-08-01",
+    "investmentPeriod": "12개월",
+    "buyYieldPreTax": "3.85%",
+    "bankEquivalentYieldPreTax": "4.52%",
+    "creditRating": "AAA",
+    "productRiskGrade": "5등급",
+    "productRiskLevel": "매우낮은위험",
+    "buyEligibility": ["일반"]
+  },
+  {
+    "name": "SK하이닉스25-3",
+    "maturityDate": "2028-02-15",
+    "investmentPeriod": "18개월",
+    "bankEquivalentYieldPreTax": "4.83%",
+    "creditRating": "AA+",
+    "productRiskGrade": "4등급",
+    "productRiskLevel": "낮은위험",
+    "buyEligibility": ["일반", "ISA전용"]
+  },
+  {
+    "name": "롯데카드26-1",
+    "maturityDate": "2029-05-20",
+    "investmentPeriod": "24개월",
+    "buyYieldPreTax": "4.55%",
+    "bankEquivalentYieldPreTax": "5.31%",
+    "creditRating": "AA-",
+    "productRiskGrade": "4등급",
+    "productRiskLevel": "낮은위험",
+    "buyEligibility": ["일반"]
+  },
+  {
+    "name": "신한카드25-9",
+    "maturityDate": "2027-11-10",
+    "investmentPeriod": "9개월",
+    "buyYieldPreTax": "3.62%",
+    "bankEquivalentYieldPreTax": "4.24%",
+    "creditRating": "AA+",
+    "productRiskGrade": "5등급",
+    "productRiskLevel": "매우낮은위험",
+    "buyEligibility": ["법인", "일반"]
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "functions": {
+    "api/work-requests.py": {
+      "includeFiles": "data/**"
+    }
+  },
+  "rewrites": [
+    { "source": "/api/work-requests/:path*", "destination": "/api/work-requests" }
+  ]
+}

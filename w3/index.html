@@ -1,0 +1,174 @@
+<!--
+  Created : 2026-08-08
+  Descript : ONVEST 업무요청(WR) 조회 API 서브시스템 문서/확인 페이지
+  WR : -
+-->
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>업무요청 API | ONVEST w3</title>
+    <script src="work-requests.js" defer></script>
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        padding: 40px 24px;
+        color: #152343;
+        font-family: "Noto Sans KR", Arial, sans-serif;
+        background: #f6f8fc;
+      }
+      .wrap { max-width: 860px; margin: 0 auto; }
+      h1 { margin: 0 0 6px; font-size: 26px; }
+      .sub { margin: 0 0 28px; color: #73809b; font-size: 14px; }
+      section { margin-bottom: 32px; }
+      h2 { font-size: 16px; margin: 0 0 12px; }
+      code, pre {
+        font-family: "Consolas", "Courier New", monospace;
+      }
+      .endpoint {
+        display: inline-block;
+        padding: 8px 12px;
+        color: #1b64ef;
+        font-size: 14px;
+        font-weight: 700;
+        background: #eaf3ff;
+        border-radius: 4px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+        background: #fff;
+      }
+      th, td {
+        padding: 10px 12px;
+        text-align: left;
+        border-bottom: 1px solid #e3e9f2;
+      }
+      th { color: #4a5876; background: #f6f8fc; }
+      .query-form {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 10px;
+      }
+      .query-form input {
+        flex: 0 0 260px;
+        height: 36px;
+        padding: 0 12px;
+        font-size: 13px;
+        border: 1px solid #dbe1ec;
+        border-radius: 4px;
+      }
+      .query-form button {
+        height: 36px;
+        padding: 0 16px;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 700;
+        background: #1b64ef;
+        border: 0;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .reset-link {
+        display: inline-block;
+        margin-top: 4px;
+        color: #73809b;
+        font-size: 12px;
+      }
+      pre#result {
+        max-height: 420px;
+        overflow: auto;
+        padding: 16px;
+        color: #d3e2ff;
+        font-size: 12.5px;
+        line-height: 1.6;
+        background: #0a1c3f;
+        border-radius: 7px;
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>업무요청(WR) 조회 API</h1>
+      <p class="sub">ONVEST 서브시스템 w3 &mdash; 업무요청 데이터를 JSON으로 제공합니다.</p>
+
+      <section>
+        <h2>엔드포인트</h2>
+        <p><span class="endpoint">GET /api/work-requests</span> 전체 조회</p>
+        <p><span class="endpoint">GET /api/work-requests?requestId={requestId}</span> 업무요청 단건 조회 (workRequests)</p>
+        <p><span class="endpoint">GET /api/work-requests?requestDpId={requestDpId}</span> 개발계획 단건 조회 (developmentPlans)</p>
+        <p style="color:#73809b;font-size:12px;">응답은 <code>Content-Type: application/json</code>이며 CORS가 허용되어 외부 도메인에서도 호출할 수 있습니다. 대상을 찾지 못하면 <code>404</code>와 <code>{"error": "..."}</code>를 반환합니다. (로컬 개발 서버에서는 <code>/w3</code> 접두사가 붙어 <code>/w3/api/work-requests</code>로 접근합니다.)</p>
+      </section>
+
+      <section>
+        <h2>응답 구조</h2>
+        <p>응답은 <code>workRequests</code>(업무요청)와 <code>developmentPlans</code>(개발계획) 두 배열로 구성됩니다. 개발계획은 <code>requestId</code>로 상위 업무요청과 연결됩니다.</p>
+      </section>
+
+      <section>
+        <h2>workRequests (업무요청) 필드</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>필드</th>
+              <th>설명</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>requestId</td><td>업무요청 번호, WRxxxx 형태 (예: WR0201)</td></tr>
+            <tr><td>title</td><td>업무요청 제목</td></tr>
+            <tr><td>requester</td><td>업무 요청자 이름</td></tr>
+            <tr><td>requestDate</td><td>요청일 (YYYY-MM-DD)</td></tr>
+            <tr><td>status</td><td>진행 상태 (완료 / 진행중 / 접수)</td></tr>
+            <tr><td>relatedSystem</td><td>관련 시스템명</td></tr>
+            <tr><td>description</td><td>상세 설명</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>developmentPlans (개발계획) 필드</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>필드</th>
+              <th>설명</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>requestDpId</td><td>개발계획 번호, WRxxxx-DPx 형태 (예: WR0201-DP1)</td></tr>
+            <tr><td>requestId</td><td>상위 업무요청 번호 (workRequests.requestId 참조)</td></tr>
+            <tr><td>title</td><td>개발계획 제목</td></tr>
+            <tr><td>developer</td><td>개발 업무 담당자</td></tr>
+            <tr><td>tasks</td><td>개발 업무 목록 (배열)</td></tr>
+            <tr><td>status</td><td>진행 상태 (완료 / 진행중 / 접수)</td></tr>
+            <tr><td>registerDate</td><td>개발계획 등록일 (YYYY-MM-DD)</td></tr>
+            <tr><td>relatedPage</td><td>관련 화면 경로</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2>조회 테스트</h2>
+        <form class="query-form" method="get">
+          <input type="text" name="requestId" placeholder="requestId 예: WR0101" />
+          <button type="submit">업무요청 조회</button>
+        </form>
+        <form class="query-form" method="get">
+          <input type="text" name="requestDpId" placeholder="requestDpId 예: WR0101-DP1" />
+          <button type="submit">개발계획 조회</button>
+        </form>
+        <a class="reset-link" href="index.html">전체 조회로 초기화</a>
+      </section>
+
+      <section>
+        <h2 id="result-title">응답 미리보기</h2>
+        <pre id="result">불러오는 중...</pre>
+      </section>
+    </div>
+  </body>
+</html>

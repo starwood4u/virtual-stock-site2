@@ -1,0 +1,106 @@
+{
+  "workRequests": [
+    {
+      "requestId": "WR0101",
+      "title": "ONVEST 메인 화면 개발 요청",
+      "requester": "박지훈",
+      "requestDate": "2026-07-18",
+      "status": "완료",
+      "relatedSystem": "ONVEST",
+      "description": "ONVEST 메인 페이지 신규 개발 및 계좌개설 기능 추가 요청"
+    },
+    {
+      "requestId": "WR0201",
+      "title": "ONVEST 자산관리 화면 개발 요청",
+      "requester": "최수아",
+      "requestDate": "2026-07-28",
+      "status": "완료",
+      "relatedSystem": "ONVEST",
+      "description": "장외채권 자산관리 화면 신규 개발 및 채권 비교 기능 추가 요청"
+    },
+    {
+      "requestId": "WR0301",
+      "title": "ONVEST 퇴직연금 화면 개발 요청",
+      "requester": "정다은",
+      "requestDate": "2026-07-29",
+      "status": "완료",
+      "relatedSystem": "ONVEST",
+      "description": "퇴직연금 나의 총자산 화면 신규 개발 요청"
+    }
+  ],
+  "developmentPlans": [
+    {
+      "requestDpId": "WR0101-DP1",
+      "requestId": "WR0101",
+      "title": "메인 화면 신규 생성",
+      "developer": "양현우",
+      "tasks": [
+        "헤더/GNB 레이아웃 개발",
+        "히어로 영역 UI 구현",
+        "시장현황(KOSPI/KOSDAQ/NASDAQ) 카드 개발",
+        "공지사항/인사이트 영역 개발"
+      ],
+      "status": "완료",
+      "registerDate": "2026-07-25",
+      "relatedPage": "w2/index.html"
+    },
+    {
+      "requestDpId": "WR0101-DP2",
+      "requestId": "WR0101",
+      "title": "계좌개설 기능 구현",
+      "developer": "양현우",
+      "tasks": [
+        "퀵메뉴 계좌개설 버튼 이벤트 처리",
+        "계좌개설 시작 alert 처리",
+        "Logger 연동"
+      ],
+      "status": "완료",
+      "registerDate": "2026-07-25",
+      "relatedPage": "w2/index.html"
+    },
+    {
+      "requestDpId": "WR0201-DP1",
+      "requestId": "WR0201",
+      "title": "자산관리 화면 추가",
+      "developer": "이서윤",
+      "tasks": [
+        "장외채권 검색/필터 UI 개발",
+        "채권 매수 리스트 테이블 개발",
+        "준법감시인 심사 정보 영역 추가"
+      ],
+      "status": "완료",
+      "registerDate": "2026-08-01",
+      "relatedPage": "w2/wealth-management.html"
+    },
+    {
+      "requestDpId": "WR0201-DP2",
+      "requestId": "WR0201",
+      "title": "자산관리 비교하기 기능 구현",
+      "developer": "이서윤",
+      "tasks": [
+        "채권 2개 선택 검증 로직 구현",
+        "수익률 기준 정렬 로직 구현",
+        "비교 결과 레이어드 팝업 UI 개발",
+        "수익률 우위 항목 하이라이트 처리"
+      ],
+      "status": "완료",
+      "registerDate": "2026-08-08",
+      "relatedPage": "w2/wealth-management.html"
+    },
+    {
+      "requestDpId": "WR0301-DP1",
+      "requestId": "WR0301",
+      "title": "퇴직연금 나의 총자산 신규 생성",
+      "developer": "서지우",
+      "tasks": [
+        "총자산 요약 카드 개발",
+        "제도별(IRP/DC/DB) 자산구성 UI 개발",
+        "보유 상품 잔고 테이블 개발",
+        "가이드 다운로드 영역 추가"
+      ],
+      "status": "완료",
+      "registerDate": "2026-08-01",
+      "relatedPage": "w2/retirement-assets.html"
+    }
+  ]
+}

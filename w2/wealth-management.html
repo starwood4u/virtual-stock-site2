@@ -130,7 +130,7 @@
               <option>국공채</option>
             </select>
             <button class="primary-button small-button" type="button" onclick="searchBond()">검색</button>
-            <button class="ghost-button" type="button" aria-label="상품비교 새창열림">비교하기</button>
+            <button class="ghost-button" type="button" aria-label="상품비교" onclick="compareBond()">비교하기</button>
             <span class="filter-note">채권신용등급 <a href="#">자세히보기 →</a></span>
           </div>
         </div>
@@ -153,72 +153,7 @@
                 <th>매수<br />(법인/일반/ISA전용)</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td><input type="checkbox" aria-label="한국전력공사177-1 선택" /></td>
-                <td>한국전력공사177-1</td>
-                <td>2027-08-01</td>
-                <td>12개월</td>
-                <td>3.85%</td>
-                <td>4.52%</td>
-                <td>AAA</td>
-                <td>5등급<br />(매우낮은위험)</td>
-                <td>
-                  <div class="buy-cell">
-                    <span class="buy-eligibility">일반</span>
-                    <button class="buy-button" type="button">매수</button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" aria-label="SK하이닉스25-3 선택" /></td>
-                <td>SK하이닉스25-3</td>
-                <td>2028-02-15</td>
-                <td>18개월</td>
-                <td>4.12%</td>
-                <td>4.83%</td>
-                <td>AA+</td>
-                <td>4등급<br />(낮은위험)</td>
-                <td>
-                  <div class="buy-cell">
-                    <span class="buy-eligibility">일반/ISA전용</span>
-                    <button class="buy-button" type="button">매수</button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" aria-label="롯데카드26-1 선택" /></td>
-                <td>롯데카드26-1</td>
-                <td>2029-05-20</td>
-                <td>24개월</td>
-                <td>4.55%</td>
-                <td>5.31%</td>
-                <td>AA-</td>
-                <td>4등급<br />(낮은위험)</td>
-                <td>
-                  <div class="buy-cell">
-                    <span class="buy-eligibility">일반</span>
-                    <button class="buy-button" type="button">매수</button>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" aria-label="신한카드25-9 선택" /></td>
-                <td>신한카드25-9</td>
-                <td>2027-11-10</td>
-                <td>9개월</td>
-                <td>3.62%</td>
-                <td>4.24%</td>
-                <td>AA+</td>
-                <td>5등급<br />(매우낮은위험)</td>
-                <td>
-                  <div class="buy-cell">
-                    <span class="buy-eligibility">법인/일반</span>
-                    <button class="buy-button" type="button">매수</button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
+            <tbody id="bond-list-body"></tbody>
           </table>
           <p class="section-subtitle">※ 화면 확인용 예시 데이터이며, 실제 청약 상품 정보가 아닙니다.</p>
         </div>
