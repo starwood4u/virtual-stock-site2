@@ -4,6 +4,7 @@
       "requestId": "WR0101",
       "title": "ONVEST 메인 화면 개발 요청",
       "requester": "박지훈",
+      "requesterDepartment": "디지털마케팅팀",
       "requestDate": "2026-07-18",
       "status": "완료",
       "relatedSystem": "ONVEST",
@@ -13,6 +14,7 @@
       "requestId": "WR0201",
       "title": "ONVEST 자산관리 화면 개발 요청",
       "requester": "최수아",
+      "requesterDepartment": "WM기획팀",
       "requestDate": "2026-07-28",
       "status": "완료",
       "relatedSystem": "ONVEST",
@@ -22,6 +24,7 @@
       "requestId": "WR0301",
       "title": "ONVEST 퇴직연금 화면 개발 요청",
       "requester": "정다은",
+      "requesterDepartment": "연금사업팀",
       "requestDate": "2026-07-29",
       "status": "완료",
       "relatedSystem": "ONVEST",
@@ -31,6 +34,7 @@
       "requestId": "WR0401",
       "title": "ONVEST 모바일 웹 서비스 전환",
       "requester": "윤건영",
+      "requesterDepartment": "디지털전략팀",
       "requestDate": "2026-08-08",
       "status": "접수",
       "relatedSystem": "ONVEST_Mobile",
@@ -43,6 +47,7 @@
       "requestId": "WR0101",
       "title": "메인 화면 신규 생성",
       "developer": "양현우",
+      "developerDepartment": "플랫폼개발팀",
       "tasks": [
         "헤더/GNB 레이아웃 개발",
         "히어로 영역 UI 구현",
@@ -61,6 +66,7 @@
       "requestId": "WR0101",
       "title": "계좌개설 기능 구현",
       "developer": "양현우",
+      "developerDepartment": "플랫폼개발팀",
       "tasks": [
         "퀵메뉴 계좌개설 버튼 이벤트 처리",
         "계좌개설 시작 alert 처리",
@@ -78,6 +84,7 @@
       "requestId": "WR0201",
       "title": "자산관리 화면 추가",
       "developer": "이서윤",
+      "developerDepartment": "플랫폼개발팀",
       "tasks": [
         "장외채권 검색/필터 UI 개발",
         "채권 매수 리스트 테이블 개발",
@@ -95,6 +102,7 @@
       "requestId": "WR0201",
       "title": "자산관리 비교하기 기능 구현",
       "developer": "이서윤",
+      "developerDepartment": "플랫폼개발팀",
       "tasks": [
         "채권 2개 선택 검증 로직 구현",
         "수익률 기준 정렬 로직 구현",
@@ -113,6 +121,7 @@
       "requestId": "WR0301",
       "title": "퇴직연금 나의 총자산 신규 생성",
       "developer": "서지우",
+      "developerDepartment": "플랫폼개발팀",
       "tasks": [
         "총자산 요약 카드 개발",
         "제도별(IRP/DC/DB) 자산구성 UI 개발",
@@ -131,6 +140,7 @@
       "requestId": "WR0401",
       "title": "모바일 전환 작업",
       "developer": "강민형",
+      "developerDepartment": "모바일개발팀",
       "tasks": [
         "기존 메인웹을 기반으로 모바일 신규 개발",
         "기존 메뉴 동일 하게 유지"
@@ -152,6 +162,7 @@
       "requestId": "WR0401",
       "title": "채권 비교 팝업내 상품 매수 기능 추가",
       "developer": "이승미",
+      "developerDepartment": "모바일개발팀",
       "tasks": [
         "채권 비교 개발 팝업내 매수 버튼 추가",
         "매수시 상품 상세 페이지 이동"
@@ -159,6 +170,8 @@
       "status": "진행",
       "registerDate": "2026-08-08",
       "relatedPage": [
+        "w2/wealth-management.js",
+        "w2m/wealth-management.js"
       ]
     }
   ]

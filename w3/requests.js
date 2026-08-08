@@ -51,7 +51,7 @@ function renderDevelopmentPlan(plan) {
 
   const devSpan = document.createElement('span');
   devSpan.className = 'dp-dev';
-  devSpan.textContent = `담당자: ${plan.developer}`;
+  devSpan.textContent = `담당자: ${plan.developer} (${plan.developerDepartment})`;
 
   head.append(idSpan, titleSpan, devSpan, createStatusBadge(plan.status));
   card.appendChild(head);
@@ -85,7 +85,7 @@ function renderWorkRequest(request, plans) {
 
   const meta = document.createElement('p');
   meta.className = 'wr-meta';
-  meta.textContent = `요청자 ${request.requester} · 요청일 ${request.requestDate} · ${request.relatedSystem}`;
+  meta.textContent = `요청자 ${request.requester} (${request.requesterDepartment}) · 요청일 ${request.requestDate} · ${request.relatedSystem}`;
   article.appendChild(meta);
 
   const desc = document.createElement('p');
