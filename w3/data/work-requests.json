@@ -26,6 +26,15 @@
       "status": "완료",
       "relatedSystem": "ONVEST",
       "description": "퇴직연금 나의 총자산 화면 신규 개발 요청"
+    },
+    {
+      "requestId": "WR0401",
+      "title": "ONVEST 모바일 웹 서비스 전환",
+      "requester": "윤건영",
+      "requestDate": "2026-08-08",
+      "status": "접수",
+      "relatedSystem": "ONVEST_Mobile",
+      "description": "ONVEST 모바일용 전환 작업"
     }
   ],
   "developmentPlans": [
@@ -42,7 +51,10 @@
       ],
       "status": "완료",
       "registerDate": "2026-07-25",
-      "relatedPage": "w2/index.html"
+      "relatedPage": [
+        "w2/index.html",
+        "w2/script.js"
+      ]
     },
     {
       "requestDpId": "WR0101-DP2",
@@ -56,7 +68,10 @@
       ],
       "status": "완료",
       "registerDate": "2026-07-25",
-      "relatedPage": "w2/index.html"
+      "relatedPage": [
+        "w2/index.html",
+        "w2/script.js"
+      ]
     },
     {
       "requestDpId": "WR0201-DP1",
@@ -70,7 +85,10 @@
       ],
       "status": "완료",
       "registerDate": "2026-08-01",
-      "relatedPage": "w2/wealth-management.html"
+      "relatedPage": [
+        "w2/wealth-management.html",
+        "w2/wealth-management.js"
+      ]
     },
     {
       "requestDpId": "WR0201-DP2",
@@ -85,7 +103,10 @@
       ],
       "status": "완료",
       "registerDate": "2026-08-08",
-      "relatedPage": "w2/wealth-management.html"
+      "relatedPage": [
+        "w2/wealth-management.html",
+        "w2/wealth-management.js"
+      ]
     },
     {
       "requestDpId": "WR0301-DP1",
@@ -100,7 +121,45 @@
       ],
       "status": "완료",
       "registerDate": "2026-08-01",
-      "relatedPage": "w2/retirement-assets.html"
+      "relatedPage": [
+        "w2/retirement-assets.html",
+        "w2/retirement-assets.js"
+      ]
+    },
+    {
+      "requestDpId": "WR0401-DP1",
+      "requestId": "WR0401",
+      "title": "모바일 전환 작업",
+      "developer": "강민형",
+      "tasks": [
+        "기존 메인웹을 기반으로 모바일 신규 개발",
+        "기존 메뉴 동일 하게 유지"
+      ],
+      "status": "완료",
+      "registerDate": "2026-08-08",
+      "relatedPage": [
+        "w2m/index.html",
+        "w2m/script.html",
+        "w2m/style.css",
+        "w2m/retirement-assets.html",
+        "w2m/retirement-assets.js",
+        "w2m/wealth-management.html",
+        "w2m/wealth-management.js"
+      ]
+    },
+    {
+      "requestDpId": "WR0401-DP2",
+      "requestId": "WR0401",
+      "title": "채권 비교 팝업내 상품 매수 기능 추가",
+      "developer": "이승미",
+      "tasks": [
+        "채권 비교 개발 팝업내 매수 버튼 추가",
+        "매수시 상품 상세 페이지 이동"
+      ],
+      "status": "진행",
+      "registerDate": "2026-08-08",
+      "relatedPage": [
+      ]
     }
   ]
 }

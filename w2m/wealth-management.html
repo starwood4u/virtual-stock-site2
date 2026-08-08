@@ -1,0 +1,96 @@
+<!--
+  Created : 2026-08-08
+  Author : 강민형
+  Descript : ONVEST 모바일 자산관리 (장외채권)
+  WR : WR0401-DP1 (신규생성)
+-->
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>자산관리 | ONVEST</title>
+    <meta name="description" content="ONVEST 모바일 - 장외채권 검색과 비교" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="Logger.js" defer></script>
+    <script src="wealth-management.js" defer></script>
+  </head>
+  <body>
+    <header class="app-topbar">
+      <h1>자산관리</h1>
+      <div class="topbar-actions">
+        <button class="icon-button" type="button" aria-label="검색">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="10.7" cy="10.7" r="5.7"></circle>
+            <path d="m15 15 5 5"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <div class="shell">
+        <div class="page-head">
+          <p class="eyebrow">WEALTH MANAGEMENT</p>
+          <p>채권신용등급 <a href="#" style="color:var(--blue);font-weight:700;">자세히보기 →</a></p>
+        </div>
+
+        <nav class="page-tabs" aria-label="채권 메뉴">
+          <a class="active" href="#">전체상품</a>
+          <a href="#">내역조회·취소</a>
+        </nav>
+
+        <form class="search-stack" onsubmit="return false;">
+          <input id="bond-name" type="text" placeholder="채권명을 입력하세요" />
+          <div class="search-row">
+            <select aria-label="채권 구분">
+              <option>전체</option>
+              <option>회사채</option>
+              <option>국공채</option>
+            </select>
+            <button type="button" onclick="searchBond()">검색</button>
+          </div>
+        </form>
+
+        <div id="bond-list" class="product-list"></div>
+
+        <p class="disclosure-note">
+          ※ 화면 확인용 예시 데이터이며, 실제 청약 상품 정보가 아닙니다.<br />
+          장외채권 매매시간 : 평일 오전 9:00 ~ 17:00 · 매매단위 : 천원<br />
+          채권은 예금자보호법에 따라 보호되지 않으며, 시황에 따라 투자원금의 손실이 발생할 수 있습니다.
+        </p>
+
+        <p class="compliance-note">ONVEST 준법감시인 심사필 제25-1387호(2025.07.17 ~ 2026.07.15)</p>
+      </div>
+    </main>
+
+    <div id="compare-bar" class="compare-bar">
+      <span id="compare-bar-text">0개 선택됨</span>
+      <button type="button" onclick="compareBond()">비교하기</button>
+    </div>
+
+    <nav class="bottom-nav" aria-label="하단 메뉴">
+      <a href="index.html">
+        <svg viewBox="0 0 24 24"><path d="M4 11.5 12 5l8 6.5"></path><path d="M6 10v9h12v-9"></path></svg>
+        홈
+      </a>
+      <a class="active" href="wealth-management.html">
+        <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"></rect><path d="M8 13l3 3 5-6"></path></svg>
+        자산관리
+      </a>
+      <a href="retirement-assets.html">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v4l3 2"></path></svg>
+        연금
+      </a>
+      <a href="#">
+        <svg viewBox="0 0 24 24"><path d="M4 20V10m6 10V4m6 16v-7"></path></svg>
+        트레이딩
+      </a>
+      <a href="#">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"></circle><path d="M5 20c1.5-4 4-5.5 7-5.5s5.5 1.5 7 5.5"></path></svg>
+        MY
+      </a>
+    </nav>
+  </body>
+</html>

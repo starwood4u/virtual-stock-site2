@@ -9,90 +9,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>업무요청 API | ONVEST w3</title>
+    <link rel="stylesheet" href="styles.css" />
     <script src="work-requests.js" defer></script>
-    <style>
-      * { box-sizing: border-box; }
-      body {
-        margin: 0;
-        padding: 40px 24px;
-        color: #152343;
-        font-family: "Noto Sans KR", Arial, sans-serif;
-        background: #f6f8fc;
-      }
-      .wrap { max-width: 860px; margin: 0 auto; }
-      h1 { margin: 0 0 6px; font-size: 26px; }
-      .sub { margin: 0 0 28px; color: #73809b; font-size: 14px; }
-      section { margin-bottom: 32px; }
-      h2 { font-size: 16px; margin: 0 0 12px; }
-      code, pre {
-        font-family: "Consolas", "Courier New", monospace;
-      }
-      .endpoint {
-        display: inline-block;
-        padding: 8px 12px;
-        color: #1b64ef;
-        font-size: 14px;
-        font-weight: 700;
-        background: #eaf3ff;
-        border-radius: 4px;
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 13px;
-        background: #fff;
-      }
-      th, td {
-        padding: 10px 12px;
-        text-align: left;
-        border-bottom: 1px solid #e3e9f2;
-      }
-      th { color: #4a5876; background: #f6f8fc; }
-      .query-form {
-        display: flex;
-        gap: 8px;
-        margin-bottom: 10px;
-      }
-      .query-form input {
-        flex: 0 0 260px;
-        height: 36px;
-        padding: 0 12px;
-        font-size: 13px;
-        border: 1px solid #dbe1ec;
-        border-radius: 4px;
-      }
-      .query-form button {
-        height: 36px;
-        padding: 0 16px;
-        color: #fff;
-        font-size: 13px;
-        font-weight: 700;
-        background: #1b64ef;
-        border: 0;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-      .reset-link {
-        display: inline-block;
-        margin-top: 4px;
-        color: #73809b;
-        font-size: 12px;
-      }
-      pre#result {
-        max-height: 420px;
-        overflow: auto;
-        padding: 16px;
-        color: #d3e2ff;
-        font-size: 12.5px;
-        line-height: 1.6;
-        background: #0a1c3f;
-        border-radius: 7px;
-        white-space: pre-wrap;
-      }
-    </style>
   </head>
   <body>
     <div class="wrap">
+      <nav class="top-nav">
+        <a class="active" href="index.html">API 문서</a>
+        <a href="requests.html">업무요청 목록</a>
+      </nav>
+
       <h1>업무요청(WR) 조회 API</h1>
       <p class="sub">ONVEST 서브시스템 w3 &mdash; 업무요청 데이터를 JSON으로 제공합니다.</p>
 

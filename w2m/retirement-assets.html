@@ -1,0 +1,199 @@
+<!--
+  Created : 2026-08-08
+  Author : 강민형
+  Descript : ONVEST 모바일 퇴직연금 나의 총자산
+  WR : WR0401-DP1 (신규생성)
+-->
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>나의 총자산 | ONVEST 퇴직연금</title>
+    <meta name="description" content="ONVEST 모바일 - 퇴직연금 적립금 현황" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="Logger.js" defer></script>
+    <script src="retirement-assets.js" defer></script>
+  </head>
+  <body>
+    <header class="app-topbar">
+      <h1>연금</h1>
+      <div class="topbar-actions">
+        <button class="icon-button" type="button" aria-label="검색">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="10.7" cy="10.7" r="5.7"></circle>
+            <path d="m15 15 5 5"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <div class="shell">
+        <div class="page-head">
+          <p class="eyebrow">RETIREMENT PENSION</p>
+        </div>
+
+        <nav class="page-tabs" aria-label="퇴직연금 메뉴">
+          <a class="active" href="#">나의 총자산</a>
+          <a href="#">입금하기</a>
+          <a href="#">신규 입금 매수 예약</a>
+          <a href="#">상품 매수</a>
+          <a href="#">증명서 발급</a>
+        </nav>
+
+        <section class="section" style="margin-top:0;">
+          <div class="section-head">
+            <h2>총자산 요약</h2>
+            <span class="more">08.01 기준</span>
+          </div>
+          <div class="summary-grid">
+            <article class="summary-card">
+              <div class="top">
+                <h3>총 적립금</h3>
+                <span class="badge up">전체</span>
+              </div>
+              <strong>29,480,000원</strong>
+              <p class="up">▲ 전월대비 <span>+320,000원</span></p>
+            </article>
+            <article class="summary-card">
+              <div class="top">
+                <h3>평가손익</h3>
+                <span class="badge up">수익</span>
+              </div>
+              <strong>+2,580,000원</strong>
+              <p class="up">▲ 누적수익률 <span>+9.6%</span></p>
+            </article>
+            <article class="summary-card">
+              <div class="top">
+                <h3>이번달 부담금</h3>
+                <span class="badge overseas">예정</span>
+              </div>
+              <strong>420,000원</strong>
+              <p class="down">▽ 입금예정일 <span>08.25</span></p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <h2>제도별 자산구성</h2>
+          </div>
+          <div class="allocation-list">
+            <div class="allocation-row">
+              <div class="top">
+                <span>개인형 IRP</span>
+                <strong>18,240,000원</strong>
+              </div>
+              <div class="allocation-bar"><span class="allocation-fill" style="width: 62%"></span></div>
+              <span class="allocation-pct">62%</span>
+            </div>
+            <div class="allocation-row">
+              <div class="top">
+                <span>DC형 (확정기여형)</span>
+                <strong>8,140,000원</strong>
+              </div>
+              <div class="allocation-bar"><span class="allocation-fill" style="width: 28%"></span></div>
+              <span class="allocation-pct">28%</span>
+            </div>
+            <div class="allocation-row">
+              <div class="top">
+                <span>DB형 (확정급여형)</span>
+                <strong>3,100,000원</strong>
+              </div>
+              <div class="allocation-bar"><span class="allocation-fill" style="width: 10%"></span></div>
+              <span class="allocation-pct">10%</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <h2>보유 상품 잔고</h2>
+          </div>
+          <div class="holding-card">
+            <div class="holding-top">
+              <span class="name">ONVEST TDF 2045</span>
+              <span class="type">펀드</span>
+            </div>
+            <div class="holding-bottom">
+              <span class="amount">매입 9,000,000원 → 평가 9,860,000원</span>
+              <span class="rate">+9.6%</span>
+            </div>
+          </div>
+          <div class="holding-card">
+            <div class="holding-top">
+              <span class="name">정기예금(1년)</span>
+              <span class="type">원리금보장</span>
+            </div>
+            <div class="holding-bottom">
+              <span class="amount">매입 8,000,000원 → 평가 8,220,000원</span>
+              <span class="rate">+2.8%</span>
+            </div>
+          </div>
+          <div class="holding-card">
+            <div class="holding-top">
+              <span class="name">ONVEST 배당인컴펀드</span>
+              <span class="type">펀드</span>
+            </div>
+            <div class="holding-bottom">
+              <span class="amount">매입 6,500,000원 → 평가 7,120,000원</span>
+              <span class="rate">+9.5%</span>
+            </div>
+          </div>
+          <div class="holding-card">
+            <div class="holding-top">
+              <span class="name">한국전력공사177-1</span>
+              <span class="type">채권</span>
+            </div>
+            <div class="holding-bottom">
+              <span class="amount">매입 4,000,000원 → 평가 4,280,000원</span>
+              <span class="rate">+7.0%</span>
+            </div>
+          </div>
+          <p class="disclosure-note">※ 화면 확인용 예시 데이터이며, 실제 자산 정보가 아닙니다.</p>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <h2>가이드 다운로드</h2>
+          </div>
+          <div class="guide-card">
+            <span>퇴직연금 DC 운용가이드</span>
+            <a href="#">다운로드 →</a>
+          </div>
+          <div class="guide-card">
+            <span>개인형 IRP 가이드</span>
+            <a href="#">다운로드 →</a>
+          </div>
+        </section>
+
+        <p class="compliance-note">연금자산관리센터 1588-1122 · 평일 09:00 - 18:00</p>
+      </div>
+    </main>
+
+    <nav class="bottom-nav" aria-label="하단 메뉴">
+      <a href="index.html">
+        <svg viewBox="0 0 24 24"><path d="M4 11.5 12 5l8 6.5"></path><path d="M6 10v9h12v-9"></path></svg>
+        홈
+      </a>
+      <a href="wealth-management.html">
+        <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"></rect><path d="M8 13l3 3 5-6"></path></svg>
+        자산관리
+      </a>
+      <a class="active" href="retirement-assets.html">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v4l3 2"></path></svg>
+        연금
+      </a>
+      <a href="#">
+        <svg viewBox="0 0 24 24"><path d="M4 20V10m6 10V4m6 16v-7"></path></svg>
+        트레이딩
+      </a>
+      <a href="#">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"></circle><path d="M5 20c1.5-4 4-5.5 7-5.5s5.5 1.5 7 5.5"></path></svg>
+        MY
+      </a>
+    </nav>
+  </body>
+</html>

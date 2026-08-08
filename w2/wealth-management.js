@@ -4,8 +4,10 @@
   Descript : ONVEST 자산관리
   WR : WR0201-DP1 자산관리 화면 추가
   WR : WR0201-DP2 자산관리 비교하기 기능 구현(수익률 비교)
+  WR : WR0401-DP2 (2026-08-09) 채권 비교 팝업내 상품 매수 기능 추가
 --*/
 //Logger.init({endpoint:'https://autolog-demo-production.up.railway.app/api/client-log'});
+Logger.init();
 
 let bondListData = [];
 
@@ -35,6 +37,10 @@ function compareBond() {
 
 function parseYieldRate(yieldText) {
   return parseFloat(yieldText);
+}
+
+function buyBond(bondName) {
+  alert(`${bondName} 매수를 시작합니다.`);
 }
 
 function openCompareModal(bonds) {
@@ -135,6 +141,27 @@ function buildCompareTable(bonds) {
 
     tbody.appendChild(tr);
   });
+
+  const buyRow = document.createElement('tr');
+  const buyLabelTd = document.createElement('td');
+  buyLabelTd.className = 'compare-row-label';
+  buyLabelTd.textContent = '매수';
+  buyRow.appendChild(buyLabelTd);
+
+  bonds.forEach((bond, index) => {
+    const td = document.createElement('td');
+    if (index === 0) td.classList.add('compare-col-best');
+
+    const buyButton = document.createElement('button');
+    buyButton.type = 'button';
+    buyButton.className = 'buy-button';
+    buyButton.textContent = '매수';
+    buyButton.addEventListener('click', () => buyBond(bond.name));
+    td.appendChild(buyButton);
+
+    buyRow.appendChild(td);
+  });
+  tbody.appendChild(buyRow);
 
   table.append(thead, tbody);
   return table;

@@ -1,0 +1,152 @@
+<!--
+  Created : 2026-08-08
+  Author : 강민형
+  Descript : ONVEST 모바일 메인 (나의 자산)
+  WR : WR0401-DP1 (신규생성)
+
+-->
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>ONVEST | 나를 위한 투자</title>
+    <meta name="description" content="ONVEST 모바일 - 나의 자산, 투자 현황, 시장 지표를 한눈에" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="Logger.js" defer></script>
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="app-topbar">
+      <a class="logo" href="index.html" aria-label="ONVEST 홈">
+        <span class="logo-mark">O</span>
+        <span class="logo-name">ON<span>VEST</span></span>
+      </a>
+      <div class="topbar-actions">
+        <button class="icon-button" type="button" aria-label="검색">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="10.7" cy="10.7" r="5.7"></circle>
+            <path d="m15 15 5 5"></path>
+          </svg>
+        </button>
+        <button class="icon-button" type="button" aria-label="알림">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 10a6 6 0 1 1 12 0c0 4 1.5 5.5 1.5 5.5H4.5S6 14 6 10Z"></path>
+            <path d="M10 19a2 2 0 0 0 4 0"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <div class="shell">
+        <p class="greeting">안녕하세요, <strong>회원</strong>님</p>
+
+        <div class="balance-card">
+          <p class="label">MY PORTFOLIO · 균형 투자형</p>
+          <strong>128,460,000원</strong>
+          <span class="rate">▲ +12.48%</span>
+          <a class="card-link" href="wealth-management.html">자산현황 자세히 보기 →</a>
+        </div>
+
+        <div class="quick-grid">
+          <a class="quick-item" href="javascript:createAcct()">
+            <span class="quick-icon">
+              <svg viewBox="0 0 28 28" aria-hidden="true">
+                <path d="M5 7h18v14H5z"></path>
+                <path d="M5 11h18M9 16h5"></path>
+              </svg>
+            </span>
+            계좌개설
+          </a>
+          <a class="quick-item" href="#">
+            <span class="quick-icon">
+              <svg viewBox="0 0 28 28" aria-hidden="true">
+                <path d="M7 22V9m7 13V5m7 17V12"></path>
+              </svg>
+            </span>
+            주식주문
+          </a>
+          <a class="quick-item" href="#">
+            <span class="quick-icon">
+              <svg viewBox="0 0 28 28" aria-hidden="true">
+                <path d="M14 4a10 10 0 1 0 10 10"></path>
+                <path d="M14 4v10h10"></path>
+              </svg>
+            </span>
+            잔고조회
+          </a>
+          <a class="quick-item" href="#">
+            <span class="quick-icon">
+              <svg viewBox="0 0 28 28" aria-hidden="true">
+                <path d="M14 23a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"></path>
+                <path d="M14 9v5l3 2"></path>
+              </svg>
+            </span>
+            이체
+          </a>
+        </div>
+
+        <section class="section">
+          <div class="section-head">
+            <h2>오늘의 시장</h2>
+            <span class="more">05.30 15:30 기준</span>
+          </div>
+          <div class="market-scroll">
+            <div class="market-chip">
+              <p class="name">KOSPI</p>
+              <strong>2,697.67</strong>
+              <p class="change up">▲ +0.84%</p>
+            </div>
+            <div class="market-chip">
+              <p class="name">KOSDAQ</p>
+              <strong>839.98</strong>
+              <p class="change up">▲ +0.52%</p>
+            </div>
+            <div class="market-chip">
+              <p class="name">NASDAQ</p>
+              <strong>17,019.88</strong>
+              <p class="change down">▼ -0.58%</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <h2>공지사항</h2>
+            <a class="more" href="#">더보기</a>
+          </div>
+          <ul class="notice-list">
+            <li><a href="#"><span>전자금융 서비스 점검 안내</span><time>05.24</time></a></li>
+            <li><a href="#"><span>고객확인제도 등록 안내</span><time>05.17</time></a></li>
+            <li><a href="#"><span>해외주식 거래 유의사항 안내</span><time>05.08</time></a></li>
+          </ul>
+        </section>
+      </div>
+    </main>
+
+    <nav class="bottom-nav" aria-label="하단 메뉴">
+      <a class="active" href="index.html">
+        <svg viewBox="0 0 24 24"><path d="M4 11.5 12 5l8 6.5"></path><path d="M6 10v9h12v-9"></path></svg>
+        홈
+      </a>
+      <a href="wealth-management.html">
+        <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"></rect><path d="M8 13l3 3 5-6"></path></svg>
+        자산관리
+      </a>
+      <a href="retirement-assets.html">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v4l3 2"></path></svg>
+        연금
+      </a>
+      <a href="#">
+        <svg viewBox="0 0 24 24"><path d="M4 20V10m6 10V4m6 16v-7"></path></svg>
+        트레이딩
+      </a>
+      <a href="#">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"></circle><path d="M5 20c1.5-4 4-5.5 7-5.5s5.5 1.5 7 5.5"></path></svg>
+        MY
+      </a>
+    </nav>
+  </body>
+</html>
